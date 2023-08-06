@@ -4,7 +4,6 @@ import { TextInput, View, Title, Button, TextArea, SelectBox, Back } from '@comp
 import API from '@api';
 import { usePlug } from '@hooks';
 import Swal from "sweetalert2";
-import { Principal } from '@dfinity/principal';
 
 export const Exchange = () => {
     const { ticketIdParam } = useParams();
@@ -28,7 +27,7 @@ export const Exchange = () => {
     }
 
     const handleExchange = async () => {
-        const principalId = window.ic.plug.sessionManager.sessionData.principalId;
+        const principalId = "window.ic.plug.sessionManager.sessionData.principalId";
         console.log({
             principalIdUserSend,
             principalIdUserRecieve,
@@ -36,7 +35,7 @@ export const Exchange = () => {
 
         try {
 
-            await API.NFT.transfer(Principal.fromText(principalId.trim()), Principal.fromText(principalIdUserRecieve.trim()), parseFloat(ticket.price));
+            // await API.NFT.transfer(Principal.fromText(principalId.trim()), Principal.fromText(principalIdUserRecieve.trim()), parseFloat(ticket.price));
         } catch (error) {
             
         }

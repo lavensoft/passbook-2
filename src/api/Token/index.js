@@ -3,26 +3,23 @@ import { Config } from '@config';
 import API from '@api';
 import Axios from 'axios';
 import { stringToSlug, randomStr } from '@utils';
-import { Principal } from '@dfinity/principal';
-
-const { actor } = usePlug();
 
 export const Token = {
     mint: async (amount) => {
-        let hero = await actor;
-        const { principal } = usePlug();
+      //   let hero = await actor;
+      //   const { principal } = usePlug();
 
-        console.log("MINTING PCB...");
+      //   console.log("MINTING PCB...");
 
-        let res = await hero.mintToken(Principal.fromText(principal), amount);
+      //   let res = await hero.mintToken(Principal.fromText(principal), amount);
 
-        return res;
+      //   return res;
     },
     balance: async () => {
-        let hero = await actor;
+      //   let hero = await actor;
 
-        const { principal } = usePlug();
+      //   const { principal } = usePlug();
 
-        return await hero.balanceOf(Principal.fromText(principal));
+      //   return await hero.balanceOf(Principal.fromText(principal));
     }
 }

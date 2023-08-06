@@ -74,7 +74,7 @@ export const ItemInformation = ({ title, id }) => {
             let fromData = await API.User.get();
 
             set(ref(db, 'notifications/' + randomStr(20)), {
-                from: window.ic.plug.sessionManager.sessionData.principalId,
+                from:" window.ic.plug.sessionManager.sessionData.principalId",
                 to: res.createdBy.toString(),
                 content: "Hello From Nhats",
                 icon: fromData[0]?.avatar

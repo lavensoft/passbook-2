@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, View, Title, FeatureCard, SectionTitle, Button, SquareCard, GridView, ScrollView, GridView, ScrollView, ProductCard, TabBadge } from '@components';
+import { AppBar, View, Title, FeatureCard, SectionTitle, Button, SquareCard, GridView, ScrollView, ProductCard, TabBadge } from '@components';
 
 import "./styles.scss";
 import API from '../../api';

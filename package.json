@@ -7,11 +7,14 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.4.0",
+    "babel-plugin-module-resolver": "^5.0.0",
     "crypto-js": "^4.1.1",
+    "customize-cra": "^1.0.0",
     "firebase": "^10.1.0",
     "framer-motion": "7.0.0",
     "mime": "^3.0.0",
     "react": "^18.2.0",
+    "react-app-rewired": "^2.2.1",
     "react-countdown": "^2.3.5",
     "react-dom": "^18.2.0",
     "react-icons": "^4.10.1",
@@ -26,8 +29,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+      "start": "react-app-rewired start",
+      "build": "npm i -f && react-app-rewired build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

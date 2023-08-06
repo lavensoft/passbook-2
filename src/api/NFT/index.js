@@ -3,9 +3,6 @@ import { Config } from '@config';
 import API from '@api';
 import Axios from 'axios';
 import { stringToSlug, randomStr } from '@utils';
-import { Principal } from '@dfinity/principal';
-
-const { actor } = usePlug();
 
 export const NFT = {
     mint: async (name, imageUrl, place, date, time, price, description, gifts, details, type, category, privacy, preorder, supplies) => {
@@ -26,271 +23,271 @@ export const NFT = {
             privacy,
             preorder,
             supplies,
-            owner: Principal.anonymous(),
-            createdBy: Principal.fromText(window.ic?.plug?.sessionManager?.sessionData?.principalId),
+            owner: "",
+            createdBy: "",
             dateCreated: new Date().toISOString(),
             checkin: false
         }
 
         //*Upload
-        let hero = await actor;
+      //   let hero = await actor;
         
-		const res = await hero.mintNFT(metadata);
+		// const res = await hero.mintNFT(metadata);
 
-        console.log(res);
+      //   console.log(res);
 
-        return res;
+      //   return res;
     },
     getAll: async() => {
-        let hero = await actor;
+      //   let hero = await actor;
 
-        //*Fetch Users
-        let users = await hero.readAccount();
+      //   //*Fetch Users
+      //   let users = await hero.readAccount();
 
-		let res = await hero.getAllTokens();
+		// let res = await hero.getAllTokens();
 
-        res = res.map(item => {
-            item.price = Math.round(Number(item.price) * 1000)/1000;
-            item.author = users.find(u => u.id?.toString() == item.createdBy?.toString());
+      //   res = res.map(item => {
+      //       item.price = Math.round(Number(item.price) * 1000)/1000;
+      //       item.author = users.find(u => u.id?.toString() == item.createdBy?.toString());
 
-            return item;
-        });
+      //       return item;
+      //   });
 
-        return res.reverse();
+      //   return res.reverse();
     },
     getAllOfUser: async( principalId ) => {
-        let hero = await actor;
-        const { principal } = usePlug();
-        const id = principalId || principal;
-        let users = await hero.readAccount();
+      //   let hero = await actor;
+      //   const { principal } = usePlug();
+      //   const id = principalId || principal;
+      //   let users = await hero.readAccount();
 
-		let res = await hero.getAllTokens();
+		// let res = await hero.getAllTokens();
 
-        res = res.map(item => {
-            item.price = Math.round(Number(item.price) * 1000)/1000;
-            item.author = users.find(u => u.id?.toString() == item.createdBy?.toString());
+      //   res = res.map(item => {
+      //       item.price = Math.round(Number(item.price) * 1000)/1000;
+      //       item.author = users.find(u => u.id?.toString() == item.createdBy?.toString());
 
-            return item;
-        });
+      //       return item;
+      //   });
 
-        res = res.filter(item => {
-            if(item.createdBy.toString() == id && item.owner.toString() == id) {
-                item.price = Math.round(Number(item.price) * 1000)/1000;
+      //   res = res.filter(item => {
+      //       if(item.createdBy.toString() == id && item.owner.toString() == id) {
+      //           item.price = Math.round(Number(item.price) * 1000)/1000;
 
-                return item;
-            }
+      //           return item;
+      //       }
 
-            return false;
-        })
+      //       return false;
+      //   })
 
-        return res.reverse();
+      //   return res.reverse();
     },
     getAllTickets: async() => {
-        let hero = await actor;
+      //   let hero = await actor;
 
-        let users = await hero.readAccount();
+      //   let users = await hero.readAccount();
 
-		let res = await hero.getAllTokens();
+		// let res = await hero.getAllTokens();
 
-        res = res.map(item => {
-            item.price = Math.round(Number(item.price) * 1000)/1000;
-            item.author = users.find(u => u.id?.toString() == item.createdBy?.toString());
+      //   res = res.map(item => {
+      //       item.price = Math.round(Number(item.price) * 1000)/1000;
+      //       item.author = users.find(u => u.id?.toString() == item.createdBy?.toString());
 
-            return item;
-        });
+      //       return item;
+      //   });
 
-        res = res.filter(item => {
-            if(item.type === "ticket") {
-                item.price = Math.round(Number(item.price) * 1000)/1000;
+      //   res = res.filter(item => {
+      //       if(item.type === "ticket") {
+      //           item.price = Math.round(Number(item.price) * 1000)/1000;
 
-                return item;
-            }
+      //           return item;
+      //       }
 
-            return false;
-        })
+      //       return false;
+      //   })
 
-        return res.reverse();
+      //   return res.reverse();
     },
     getAllNFTs: async() => {
-        let hero = await actor;
+      //   let hero = await actor;
 
-        let users = await hero.readAccount();
+      //   let users = await hero.readAccount();
 
-		let res = await hero.getAllTokens();
+		// let res = await hero.getAllTokens();
 
-        res = res.map(item => {
-            item.price = Math.round(Number(item.price) * 1000)/1000;
-            item.author = users.find(u => u.id?.toString() == item.createdBy?.toString());
+      //   res = res.map(item => {
+      //       item.price = Math.round(Number(item.price) * 1000)/1000;
+      //       item.author = users.find(u => u.id?.toString() == item.createdBy?.toString());
 
-            return item;
-        });
+      //       return item;
+      //   });
 
-        res = res.filter(item => {
-            if(item.type === "nft") {
-                item.price = Math.round(Number(item.price) * 1000)/1000;
+      //   res = res.filter(item => {
+      //       if(item.type === "nft") {
+      //           item.price = Math.round(Number(item.price) * 1000)/1000;
 
-                return item;
-            }
+      //           return item;
+      //       }
 
-            return false;
-        })
+      //       return false;
+      //   })
 
-        return res.reverse();
+      //   return res.reverse();
     },
     getOwned: async() => {
-        let hero = await actor;
+      //   let hero = await actor;
 
-        let users = await hero.readAccount();
+      //   let users = await hero.readAccount();
 
-		let res = await hero.getAllTokens();
+		// let res = await hero.getAllTokens();
 
-        res = res.map(item => {
-            item.price = Math.round(Number(item.price) * 1000)/1000;
-            item.author = users.find(u => u.id?.toString() == item.createdBy?.toString());
+      //   res = res.map(item => {
+      //       item.price = Math.round(Number(item.price) * 1000)/1000;
+      //       item.author = users.find(u => u.id?.toString() == item.createdBy?.toString());
 
-            return item;
-        });
+      //       return item;
+      //   });
 
-        res = res.filter(item => {
-            let itemOwner = item.owner.toString();
-            let principal = window.ic?.plug?.sessionManager?.sessionData?.principalId;
+      //   res = res.filter(item => {
+      //       let itemOwner = item.owner.toString();
+      //       let principal = window.ic?.plug?.sessionManager?.sessionData?.principalId;
 
-            if(itemOwner == principal) {
-                item.price = Math.round(Number(item.price) * 1000)/1000;
+      //       if(itemOwner == principal) {
+      //           item.price = Math.round(Number(item.price) * 1000)/1000;
 
-                return item;
-            }else{
-                return false;
-            }
-        })
+      //           return item;
+      //       }else{
+      //           return false;
+      //       }
+      //   })
         
-        return res.reverse();
+      //   return res.reverse();
     },
     getCreatedNFTs: async() => {
-        let hero = await actor;
+      //   let hero = await actor;
 
-        let users = await hero.readAccount();
+      //   let users = await hero.readAccount();
 
-		let res = await hero.getAllTokens();
+		// let res = await hero.getAllTokens();
 
-        res = res.map(item => {
-            item.price = Math.round(Number(item.price) * 1000)/1000;
-            item.author = users.find(u => u.id?.toString() == item.createdBy?.toString());
+      //   res = res.map(item => {
+      //       item.price = Math.round(Number(item.price) * 1000)/1000;
+      //       item.author = users.find(u => u.id?.toString() == item.createdBy?.toString());
 
-            return item;
-        });
+      //       return item;
+      //   });
 
-        res = res.filter(item => {
-            let itemCreated = item.createdBy.toString();
-            let principal = window.ic?.plug?.sessionManager?.sessionData?.principalId;
+      //   res = res.filter(item => {
+      //       let itemCreated = item.createdBy.toString();
+      //       let principal = window.ic?.plug?.sessionManager?.sessionData?.principalId;
 
-            if(item.nftType === "nft" && itemCreated == principal) {
-                item.price = Math.round(Number(item.price) * 1000)/1000;
+      //       if(item.nftType === "nft" && itemCreated == principal) {
+      //           item.price = Math.round(Number(item.price) * 1000)/1000;
 
-                return item;
-            }
+      //           return item;
+      //       }
 
-            return false;
-        })
+      //       return false;
+      //   })
 
-        return res.reverse();
+      //   return res.reverse();
     },
     get: async(id) => {
-        let hero = await actor;
-        let { principal } = usePlug();
+      //   let hero = await actor;
+      //   let { principal } = usePlug();
 
-        let res = await hero.getTokenInfo(id);
+      //   let res = await hero.getTokenInfo(id);
 
-        let userRes = await hero.getUserInfo(res.createdBy);
+      //   let userRes = await hero.getUserInfo(res.createdBy);
 
-        res.price = Math.round(Number(res?.price) * 1000)/1000;
-        res.author = userRes[0];
+      //   res.price = Math.round(Number(res?.price) * 1000)/1000;
+      //   res.author = userRes[0];
 
 
-        res.gifts = res.gifts.map(item => {
-            item.image = new Uint8Array(item?.image);
-            item.image = URL.createObjectURL(new Blob([item?.image]));
+      //   res.gifts = res.gifts.map(item => {
+      //       item.image = new Uint8Array(item?.image);
+      //       item.image = URL.createObjectURL(new Blob([item?.image]));
 
-            return item;
-        });
+      //       return item;
+      //   });
 
-        res.owned = (res.owner.toString() === principal);
+      //   res.owned = (res.owner.toString() === principal);
 
-        return res;
+      //   return res;
     },
     clearAll: async() => {
-        console.log("CLEARING...")
-        let hero = await actor;
+      //   console.log("CLEARING...")
+      //   let hero = await actor;
 
-        const res = await hero.clearAllTokens();
+      //   const res = await hero.clearAllTokens();
 
-        console.log(res);
+      //   console.log(res);
 
-        return res;
+      //   return res;
     },
     purchase: async(tokenId, supplies) => {
-        const { requestTransfer } = usePlug();
-        let hero = await actor;
+      //   const { requestTransfer } = usePlug();
+      //   let hero = await actor;
 
-        const res = await hero.purchaseNFT(tokenId, supplies, randomStr(5));
+      //   const res = await hero.purchaseNFT(tokenId, supplies, randomStr(5));
 
-        return res;
+      //   return res;
     },
     checkinTicket: async(ticketCode) => {
-        console.log("VERIFYING...");
-        let hero = await actor;
+      //   console.log("VERIFYING...");
+      //   let hero = await actor;
 
-        let ticketId = ticketCode.split("#")[0];
-        let principalId = Principal.fromText(ticketCode.split("#")[1]);
+      //   let ticketId = ticketCode.split("#")[0];
+      //   let principalId = Principal.fromText(ticketCode.split("#")[1]);
 
-        console.log(ticketCode.split("#")[1]);
+      //   console.log(ticketCode.split("#")[1]);
 
-        return await hero.checkinTicket(ticketId, principalId);
+      //   return await hero.checkinTicket(ticketId, principalId);
     },
     checkPreorders: async () => {
-        let hero = await actor;
-        const { principal } = usePlug();
+      //   let hero = await actor;
+      //   const { principal } = usePlug();
 
-        //Filter user
-        let orders = await hero.getAllTokenPreorders();
+      //   //Filter user
+      //   let orders = await hero.getAllTokenPreorders();
 
-        orders = orders.filter(item => {
-            return item.owner.toString() === principal && item.available;
-        });
+      //   orders = orders.filter(item => {
+      //       return item.owner.toString() === principal && item.available;
+      //   });
 
-        let dateNow = new Date();
+      //   let dateNow = new Date();
 
-        //Fetch token info
-        for(var item of orders) {
-            try {
-                let token = await hero.getTokenInfo(item.nftId);
-                let preorder = token.preorder;
-                let endTime = new Date(`${preorder.end} ${preorder.endTime}`);
+      //   //Fetch token info
+      //   for(var item of orders) {
+      //       try {
+      //           let token = await hero.getTokenInfo(item.nftId);
+      //           let preorder = token.preorder;
+      //           let endTime = new Date(`${preorder.end} ${preorder.endTime}`);
 
-                if(dateNow >= endTime) {
-                    for(var i = 1; i <= item.supplies; i++) {
-                        await hero.mintCloneNFT(item.nftId, randomStr(5), Principal.fromText(principal));
-                    }
+      //           if(dateNow >= endTime) {
+      //               for(var i = 1; i <= item.supplies; i++) {
+      //                   await hero.mintCloneNFT(item.nftId, randomStr(5), Principal.fromText(principal));
+      //               }
 
-                    await hero.removeTokenPreorder(item.id);
-                }
-            }catch(e) {
-                console.log(e);
-            };
-        }
+      //               await hero.removeTokenPreorder(item.id);
+      //           }
+      //       }catch(e) {
+      //           console.log(e);
+      //       };
+      //   }
     },
     swap: async(from, to) => {
-        let hero = await actor;
+      //   let hero = await actor;
 
-        let res = await hero.swapNFT(from, to);
+      //   let res = await hero.swapNFT(from, to);
 
-        return res;
+      //   return res;
     },
     transfer: async (from, to, tokenId) => {
-        let hero = await actor;
+      //   let hero = await actor;
 
-        let res = await hero.transferNFT(from, to, tokenId, 0);
+      //   let res = await hero.transferNFT(from, to, tokenId, 0);
 
-        return res;
+      //   return res;
     }
 }

@@ -10,12 +10,12 @@ export const Connect = ({ match, navigation }) => {
       }, []);
   
       const fetch = async() => {
-        let b = await actor;
-        let a = await b.readAccount();
-        let balance = await getBalance();
+      //   let b = await actor;
+      //   let a = await b.readAccount();
+      //   let balance = await getBalance();
   
-        console.log(a);
-        console.log(balance);
+      //   console.log(a);
+      //   console.log(balance);
       }
 
     return (

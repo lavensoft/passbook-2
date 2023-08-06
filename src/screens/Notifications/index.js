@@ -32,7 +32,7 @@ export const Notifications = ({ match, navigation }) => {
                             Object.keys(notifications).map((key, index) => {
                                 let item = notifications[key];
 
-                                if(item.to == window.ic.plug.sessionManager.sessionData.principalId) {
+                                if(item.to == "window.ic.plug.sessionManager.sessionData.principalId") {
                                     return (
                                         <Link to={`/notifications/${key}`}>
                                             <div key={`item-notification-${index}`} style={{position: "relative"}}>

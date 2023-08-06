@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 import "./styles.scss";
-import { Principal } from '@dfinity/principal';
 
 export const SettingsScreen = () => {
     const { connect, isConnected, principal, accountId, getBalance, actor } = usePlug();
@@ -47,31 +46,31 @@ export const SettingsScreen = () => {
     }
 
     const handleSubmit = async () => {
-      const { principal } = usePlug();
+      // const { principal } = usePlug();
 
-      const user = {
-        firstName,
-        lastName,
-        dateOfBirth: date,
-        liveIn,
-        sex,
-        phone,
-        avatar: avatarUrl,
-        background: backgroundUrl,
-        id: Principal.fromText(principal)
-      };
+      // const user = {
+      //   firstName,
+      //   lastName,
+      //   dateOfBirth: date,
+      //   liveIn,
+      //   sex,
+      //   phone,
+      //   avatar: avatarUrl,
+      //   background: backgroundUrl,
+      //   id: Principal.fromText(principal)
+      // };
 
-      try {
-        await API.User.createUser(user);
+      // try {
+      //   await API.User.createUser(user);
 
-        Swal.fire(
-            'Cập nhật thành công!',
-            'Thông tin của bạn đã được cập nhật',
-            'success'
-        );
-      }catch(e) {
-        console.log(e);
-      };
+      //   Swal.fire(
+      //       'Cập nhật thành công!',
+      //       'Thông tin của bạn đã được cập nhật',
+      //       'success'
+      //   );
+      // }catch(e) {
+      //   console.log(e);
+      // };
     }
 
     const handleUploadAvatar = async (e) => {

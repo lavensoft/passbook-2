@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { View, Title, ScrollView, GridView, UserCard, Button, TextInput, View, Back } from '@components';
+import { View, Title, ScrollView, GridView, UserCard, Button, TextInput, Back } from '@components';
 
 import "./styles.scss";
 
@@ -10,15 +10,15 @@ export const AddUser = () => {
 
     const handleUploadImage = async (e) => {
         //*Image Upload
-        let file = e.target.files[0];
-        let fileBlob = URL.createObjectURL(file);
-        let imageBuffer = [...new Uint8Array(await file.arrayBuffer())];
+      //   let file = e.target.files[0];
+      //   let fileBlob = URL.createObjectURL(file);
+      //   let imageBuffer = [...new Uint8Array(await file.arrayBuffer())];
 
-        setImagePreview(fileBlob);
+      //   setImagePreview(fileBlob);
 
-        let uploadRes = await API.IPFS.uploadImage(file);
+      //   let uploadRes = await API.IPFS.uploadImage(file);
 
-        setImageUrl(uploadRes);
+      //   setImageUrl(uploadRes);
     }
     
     return (
@@ -49,7 +49,7 @@ export const AddUser = () => {
                         <input type="radio" id="female" name="radioButton" value="female" style={{marginLeft: "5px"}}></input>
                     </div>
                 </div>
-                <TextInput onChange={e => setDate(e.target.value)} placeholder="Date" type="date" />
+                {/* <TextInput onChange={e => setDate(e.target.value)} placeholder="Date" type="date" /> */}
                 <TextInput placeholder="Phonenumber" type="text" />
                 <TextInput placeholder="Address" type="text" />
                 <Button style={{ marginTop: 32 }}>Save</Button>
