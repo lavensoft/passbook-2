@@ -36,7 +36,7 @@ export const ProductCard = ({ style, onClick, id, to="#", title, owner, price, i
                 <div className="card--product__content">
                     <motion.span className="card--product__content__owner" layoutId={id && `card-content-owner-${id}`}>{ owner }</motion.span>
                     <motion.span className="card--product__content__title" layoutId={id && `card-content-title-${id}`}>{ title }</motion.span>
-                    <motion.span className="card--product__content__price" layoutId={id && `card-content-price-${id}`}>{ price } { Config.TOKEN.SYMBOL }</motion.span>
+                    <motion.span className="card--product__content__price" layoutId={id && `card-content-price-${id}`}>{ price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } { Config.TOKEN.SYMBOL }</motion.span>
                 </div>
             </Link>
         </motion.div>
@@ -70,7 +70,7 @@ export const BalanceCard = ({ style, onClick, to="#", balance }) => {
                     <span className="card--balance__content__title">Total Balance</span>
                     
                     <div className="card--balance__content__balance-container">
-                        <span className="card--balance__content__balance-container__balance">{ balance } {Config.TOKEN.SYMBOL}</span>
+                        <span className="card--balance__content__balance-container__balance">{ balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } {Config.TOKEN.SYMBOL}</span>
                     </div>
                 </div>
             </Link>

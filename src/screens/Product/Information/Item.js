@@ -43,22 +43,19 @@ export const ItemInformation = ({ title, id }) => {
     }, []);
 
     const fetchData = async () => {
-      //   //*Fetch NFTs
-      //   let nft = await API.NFT.get(id);
+        //*Fetch NFTs
+        let nft = await API.NFT.get(id);
 
-      //   setItemData(nft);
-      //   setIsOwned(nft.owned);
-      //   setIsTicket(nft.nftType === "ticket");
+        setItemData(nft);
+        setIsOwned(nft.owned);
+        setIsTicket(nft.nftType === "ticket");
 
-      //   console.log("A");
-
-      //   //*Generate QR Ticket
-      //   if(nft.nftType === "ticket" && nft.owned && ( nft.owner.toString() != nft.createdBy.toString() )) setQRValue(`${nft.id}#${nft.owner}`)
+        //*Generate QR Ticket
+        if(nft.nftType === "ticket" && nft.owned && ( nft.owner.toString() != nft.createdBy.toString() )) setQRValue(`${nft.id}#${nft.owner}`)
     
-      //   //*Get category
-      //   console.log(Config.VARIABLES.TICKET_CATEGORIES);
-      //   let category = Config.VARIABLES.TICKET_CATEGORIES.find(item => item?.value == nft.category)?.label;
-      //   setCategory(category);
+        //*Get category
+        let category = Config.VARIABLES.TICKET_CATEGORIES.find(item => item?.value == nft.category)?.label;
+        setCategory(category);
     }
 
     const handlePurchase = async () => {
@@ -124,8 +121,8 @@ export const ItemInformation = ({ title, id }) => {
                 </motion.div>
                 <motion.div className="content-container" animate>
                     <motion.span className="title">{ ticketMeta?.name }</motion.span>
-                    <PriceTitle price={ ticketMeta?.price } currency={ Config.TOKEN.SYMBOL } />
-                    <CreatorCard to={`/users/${ticketMeta?.createdBy}`} image={ticketMeta?.author?.avatar} name={ `${ticketMeta?.author?.firstName || ""} ${ticketMeta?.author?.lastName || ""}` }/>
+                    <PriceTitle price={ ticketMeta?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } currency={ Config.TOKEN.SYMBOL } />
+                    <CreatorCard to={`/users/${ticketMeta?.createdBy}`} image={ticketMeta?.author?.picture} name={ `${ticketMeta?.author?.name || ""} ${ticketMeta?.author?.lastName || ""}` }/>
                     <ActionsGroup.Group>
                         {actions.map((action, index) => {
                             return <ActionsGroup.Button key={index} onClick={() => handleClick(action)} name={action.name} icon={action.icon}/>

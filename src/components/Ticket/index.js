@@ -47,7 +47,7 @@ export const Ticket = ({ title, description, place, date, time, section, seat, p
                 <div className="ticket__content__row">
                     <div className="ticket__content__row__col">
                         <span className="ticket__content__title">Giá</span>
-                        <span className="ticket__content__value">{ price }</span>
+                        <span className="ticket__content__value">{ price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") }</span>
                     </div>
                     { preorder && <div className="ticket__content__row__col">
                         <span className="ticket__content__title">Ngày phát hành</span>

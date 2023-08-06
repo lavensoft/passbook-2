@@ -55,13 +55,12 @@ export const NFTCreateScreen = () => {
         //*Image Upload
         let file = e.target.files[0];
         let fileBlob = URL.createObjectURL(file);
-        let imageBuffer = [...new Uint8Array(await file.arrayBuffer())];
 
         setImagePreview(fileBlob);
 
         let uploadRes = await API.IPFS.uploadImage(file);
 
-        setImageUrl(uploadRes);
+        setImageUrl(uploadRes.data.url);
     }
 
     const handleSubmit = async () => {

@@ -16,21 +16,21 @@ export const HomeScreen = ({ match, navigation }) => {
     const [ userInfo, setUserInfo ] = useState({ });
 
     useEffect(() => {
-        fetchData();
+       fetchData();
     }, []);
 
 
     const fetchData = async () => {
       //   //*Fetch balance
-      //   let balance = await API.PCB.balance();
-      //   setBalance(balance);
+      let balance = 10000000;
+      setBalance(balance);
 
       //   //*Check preorder;
       //   await API.NFT.checkPreorders();
 
-      //   let ownedNFT = await API.NFT.getOwned();
+        let ownedNFT = await API.NFT.getOwned();
 
-      //   setOwnedTickets(ownedNFT);
+        setOwnedTickets(ownedNFT);
 
       //   //*Fetch User
       //   let user = await API.User.get();
@@ -52,25 +52,25 @@ export const HomeScreen = ({ match, navigation }) => {
                         <AppBar.ActionButton icon={<IoScan/>} to="/qr_scan"/>
                     }
                     actions={
-                        <AppBar.AvatarImage image={userInfo?.avatar}/>
+                        <AppBar.AvatarImage image={JSON.parse(localStorage.getItem("@user")).picture}/>
                     }
                 />
 
                 <BalanceCard balance={balance}/>
 
-                <Button style={{marginTop: 32}} onClick={() => {
+                {/* <Button style={{marginTop: 32}} onClick={() => {
                     let value = 1000;
 
                     API.PCB.mint(value);
                     setBalance(balance + value);
-                }}>Mua Coin</Button>
+                }}>Mua Coin</Button> */}
 
                 <Title
-                    subtitle="Xin chào Quang Nhat"
+                    subtitle={`Xin chào ${JSON.parse(localStorage.getItem("@user")).name}`}
                     title="Sự kiện nổi bật"
                 />
 
-                <FeatureCard to={`/items/ownedTickets[0]?.id`} id={`ownedTickets[0]?.id`} image={ "ownedTickets[0]?.image" }/>
+                <FeatureCard to={`/items/${ownedTickets[0]?.id}`} id={ownedTickets[0]?.id} image={ownedTickets[0]?.image }/>
 
                 <SectionTitle
                     title="Sự kiện sắp diễn ra"

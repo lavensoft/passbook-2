@@ -5,6 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
+Object.defineProperty(Array.prototype, 'groupBy', {
+   value: function (property) {
+       return this.reduce(function (accumulator, obj) {
+         let key = obj[property]
+         if (!accumulator[key]) {
+           accumulator[key] = []
+         }
+         accumulator[key].push(obj)
+         return accumulator
+       }, {})
+   }
+ });
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

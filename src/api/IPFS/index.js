@@ -1,20 +1,20 @@
 import Axios from 'axios';
-import { Config } from '@config';
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 export const IPFS = {
-    uploadImage: async (file) => {
-        let formData = new FormData();
+   uploadImage: async (file) => {
+      const formData = new FormData();
+      formData.append(
+         "file",
+         file,
+         file.name
+      );
 
-        formData.append('file', file);
-
-        let pinRes = await Axios.post('https://api.pinata.cloud/pinning/pinFileToIPFS', formData, {
-            headers: {
-                pinata_api_key: Config.PINATA.KEY,
-                pinata_secret_api_key: Config.PINATA.SECRET
-            }
-        });
-
-        return `${Config.PINATA.FILE_URL}${pinRes.data.IpfsHash}`;
-    }
+      return await Axios.post(`https://orios-server.lavenes.com/api/v1/files/upload_media`, formData, {
+         headers: {
+            "app":"63452fa601a4792a134bf3f2", 
+            "api_key":"AIzaSyAGLoe812akN97h2LVKZoUc3eHdeFGz9SI",
+            "Content-Type": "application/json"
+         }
+      });
+   }
 }
