@@ -35,6 +35,6 @@ export const Config = {
     IMGUR_CLIENT_ID: "4f61d80726ad8f2",
     TOKEN: {
         NAME: "PassBook Coin",
-        SYMBOL: "PCB"
+        SYMBOL: "đ"
     }
 }
