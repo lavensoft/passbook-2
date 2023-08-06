@@ -1,0 +1,121 @@
+@import "../../styles/lavenes.scss";
+
+.ticket {
+    background-color: #fff;
+    border-radius: 11px;
+    padding: 20px;
+    box-sizing: border-box;
+    margin-top: $section-gap;
+
+    &__head {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &__logo {
+            flex: 1;
+            display: flex;
+            align-items: center;
+
+            &__image {
+                height: 28px;
+            }
+        }
+
+        &__badge {
+            padding: 4px 12px;
+            background-color: orange;
+            border-radius: 8px;
+
+            &__title {
+                color: white;
+                font-size: $footnote;
+                font-weight: 500;
+            }
+        }
+
+        &__actions {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 16px;
+
+            &__button {
+                font-size: 20px;
+                color: $secondary-text-color;
+            }
+        }
+    }
+
+    &__title {
+        margin: 0;
+        font-size: $title2;
+        margin-top: 32px;
+        color: $primary-text-color;
+    }
+
+    &__description {
+        margin: 0;
+        font-size: $footnote;
+        margin-top: 5px;
+        color: $secondary-text-color;
+    }
+
+    &__divide {
+        width: 100%;
+        margin-top: 24px;
+        border-top: 1px dashed $primary-divide-color;
+
+        &--line {
+            width: 100%;
+            height: 1px;
+            border-top: 1px solid $primary-divide-color;
+            margin-top: 24px;
+        }
+    }
+
+    &__content {
+        margin-top: 24px;
+
+        &__row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 26px;
+
+            &__col {
+                flex: 1;
+            }
+        }
+
+        &__title {
+            font-size: $body;
+            color: $secondary-text-color;
+            display: block;
+            font-weight: 600;
+        }
+
+        &__value {
+            font-size: $body;
+            color: $primary-text-color;
+            display: block;
+            margin-top: 8px;
+
+            &__feature {
+                font-weight: 600;
+                font-size: 25px;
+            }
+        }
+
+        &__qr-code {
+            width: 100%;
+            margin-top: 16px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-block: 20px 6px;
+        }
+    }
+}

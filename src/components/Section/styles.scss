@@ -1,0 +1,8 @@
+@import "@styles/lavenes";
+
+.section-divider {
+    margin-block: $section-gap;
+    width: 100%;
+    height: 1px;
+    background-color: $primary-divide-color;
+}

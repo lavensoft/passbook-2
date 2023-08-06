@@ -1,0 +1,65 @@
+@import "../../styles/lavenes.scss";
+
+.title {
+    &-header {
+        width: 100%;
+        margin-top: $section-gap;
+        
+        &__sub {
+            font-size: $subhead;
+            font-weight: 600;
+        }
+    
+        &__big {
+            margin: 0;
+            margin-top: 3pt;
+            font-size: $title1;
+        }
+    }
+
+    &-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: $section-gap-large;
+
+        &__title {
+            font-size: $headline;
+            color: $primary-text-color;
+            font-weight: 600;
+            flex: 1;
+            margin: 0;
+        }
+
+        &__read-more {
+            font-size: $callout;
+            color: $secondary-text-color;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &__icon {
+                margin-left: 5pt;
+            }
+        }
+    }
+
+    &-price {
+        margin-top: 6px!important;
+
+        &__price {
+            font-size: $title2;
+            font-weight: 600;
+            color: $primary-text-color;
+        }
+
+        &__currency {
+            margin-left: 8px;
+            font-size: $title2;
+            font-weight: 600;
+            color: $primary-text-color;
+            margin-top: $section-gap;
+        }
+    }
+}

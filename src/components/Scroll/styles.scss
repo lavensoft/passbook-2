@@ -1,0 +1,10 @@
+@import "../../styles/lavenes.scss";
+
+.scroll-view {
+    margin-inline: -($view-padding-horizontal);
+    padding-inline: $view-padding-horizontal;
+
+    & .grid-view > *:last-child {
+        margin-right: $view-padding-horizontal;
+    }
+}

@@ -1,0 +1,63 @@
+@import "../../styles/lavenes.scss";
+
+.appbar {
+    width: 100%;
+    height: $appbar-height;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    z-index: 999999;
+
+    &.fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        padding: $view-padding;
+        padding-top: 26px;
+        background-color: rgba(255,255,255,.75);
+        backdrop-filter: blur(20px) saturate(180%);
+    }
+
+    &__leading {
+        display: flex;
+        gap: 8px;
+    }
+
+    &__title {
+        flex: 1;
+        margin-inline: 16px;
+
+        &__title {
+            font-size: $headline;
+            font-weight: 500;
+        }
+    }
+
+    &__actions {
+        display: flex;
+        gap: 8px;
+    }
+
+    &__action-btn {
+        background: transparent;
+        border: none;
+        outline: none;
+        width: 32px;
+        height: 32px;
+        font-size: $headline;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: $primary-text-color;
+    }
+
+    &__avatar-image {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: gray;
+    }
+}

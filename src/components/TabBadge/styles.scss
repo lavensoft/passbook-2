@@ -1,0 +1,27 @@
+@import "@styles/lavenes";
+
+.tab-badge-group {
+    display: flex;
+    align-items: center;
+    gap: $grid-gap;
+    margin-top: $section-gap-mid;
+    width: 100%;
+    overflow: auto;
+
+    &__tab-badge {
+        padding: 6px 18px;
+        background-color: $primary-input-background-color;
+        border-radius: 6px;
+        font-weight: 500;
+
+        &.active {
+            background-color: $primary-input-active-background-color;
+            color: $primary-input-active-font-color;
+            font-weight: 700!important;;
+        }
+
+        &__content {
+            font-size: $body;
+        }
+    }
+}

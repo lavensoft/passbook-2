@@ -1,0 +1,144 @@
+@font-face {
+    font-family: 'Google Sans';
+    src: url('GoogleSans-Black.eot');
+    src: url('GoogleSans-Black.eot?#iefix') format('embedded-opentype'),
+        url('GoogleSans-Black.woff2') format('woff2'),
+        url('GoogleSans-Black.woff') format('woff'),
+        url('GoogleSans-Black.ttf') format('truetype'),
+        url('GoogleSans-Black.svg#GoogleSans-Black') format('svg');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Google Sans';
+    src: url('GoogleSans-Regular.eot');
+    src: url('GoogleSans-Regular.eot?#iefix') format('embedded-opentype'),
+        url('GoogleSans-Regular.woff2') format('woff2'),
+        url('GoogleSans-Regular.woff') format('woff'),
+        url('GoogleSans-Regular.ttf') format('truetype'),
+        url('GoogleSans-Regular.svg#GoogleSans-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Google Sans';
+    src: url('GoogleSans-Light.eot');
+    src: url('GoogleSans-Light.eot?#iefix') format('embedded-opentype'),
+        url('GoogleSans-Light.woff2') format('woff2'),
+        url('GoogleSans-Light.woff') format('woff'),
+        url('GoogleSans-Light.ttf') format('truetype'),
+        url('GoogleSans-Light.svg#GoogleSans-Light') format('svg');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Google Sans';
+    src: url('GoogleSans-Bold.eot');
+    src: url('GoogleSans-Bold.eot?#iefix') format('embedded-opentype'),
+        url('GoogleSans-Bold.woff2') format('woff2'),
+        url('GoogleSans-Bold.woff') format('woff'),
+        url('GoogleSans-Bold.ttf') format('truetype'),
+        url('GoogleSans-Bold.svg#GoogleSans-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Google Sans';
+    src: url('GoogleSans-Italic.eot');
+    src: url('GoogleSans-Italic.eot?#iefix') format('embedded-opentype'),
+        url('GoogleSans-Italic.woff2') format('woff2'),
+        url('GoogleSans-Italic.woff') format('woff'),
+        url('GoogleSans-Italic.ttf') format('truetype'),
+        url('GoogleSans-Italic.svg#GoogleSans-Italic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Google Sans';
+    src: url('GoogleSans-BlackItalic.eot');
+    src: url('GoogleSans-BlackItalic.eot?#iefix') format('embedded-opentype'),
+        url('GoogleSans-BlackItalic.woff2') format('woff2'),
+        url('GoogleSans-BlackItalic.woff') format('woff'),
+        url('GoogleSans-BlackItalic.ttf') format('truetype'),
+        url('GoogleSans-BlackItalic.svg#GoogleSans-BlackItalic') format('svg');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Google Sans';
+    src: url('GoogleSans-MediumItalic.eot');
+    src: url('GoogleSans-MediumItalic.eot?#iefix') format('embedded-opentype'),
+        url('GoogleSans-MediumItalic.woff2') format('woff2'),
+        url('GoogleSans-MediumItalic.woff') format('woff'),
+        url('GoogleSans-MediumItalic.ttf') format('truetype'),
+        url('GoogleSans-MediumItalic.svg#GoogleSans-MediumItalic') format('svg');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Google Sans';
+    src: url('GoogleSans-BoldItalic.eot');
+    src: url('GoogleSans-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('GoogleSans-BoldItalic.woff2') format('woff2'),
+        url('GoogleSans-BoldItalic.woff') format('woff'),
+        url('GoogleSans-BoldItalic.ttf') format('truetype'),
+        url('GoogleSans-BoldItalic.svg#GoogleSans-BoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Google Sans';
+    src: url('GoogleSans-LightItalic.eot');
+    src: url('GoogleSans-LightItalic.eot?#iefix') format('embedded-opentype'),
+        url('GoogleSans-LightItalic.woff2') format('woff2'),
+        url('GoogleSans-LightItalic.woff') format('woff'),
+        url('GoogleSans-LightItalic.ttf') format('truetype'),
+        url('GoogleSans-LightItalic.svg#GoogleSans-LightItalic') format('svg');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Google Sans';
+    src: url('GoogleSans-ThinItalic.eot');
+    src: url('GoogleSans-ThinItalic.eot?#iefix') format('embedded-opentype'),
+        url('GoogleSans-ThinItalic.woff2') format('woff2'),
+        url('GoogleSans-ThinItalic.woff') format('woff'),
+        url('GoogleSans-ThinItalic.ttf') format('truetype'),
+        url('GoogleSans-ThinItalic.svg#GoogleSans-ThinItalic') format('svg');
+    font-weight: 100;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Google Sans';
+    src: url('GoogleSans-Medium.eot');
+    src: url('GoogleSans-Medium.eot?#iefix') format('embedded-opentype'),
+        url('GoogleSans-Medium.woff2') format('woff2'),
+        url('GoogleSans-Medium.woff') format('woff'),
+        url('GoogleSans-Medium.ttf') format('truetype'),
+        url('GoogleSans-Medium.svg#GoogleSans-Medium') format('svg');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Google Sans';
+    src: url('GoogleSans-Thin.eot');
+    src: url('GoogleSans-Thin.eot?#iefix') format('embedded-opentype'),
+        url('GoogleSans-Thin.woff2') format('woff2'),
+        url('GoogleSans-Thin.woff') format('woff'),
+        url('GoogleSans-Thin.ttf') format('truetype'),
+        url('GoogleSans-Thin.svg#GoogleSans-Thin') format('svg');
+    font-weight: 100;
+    font-style: normal;
+}
+

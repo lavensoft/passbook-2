@@ -1,0 +1,18 @@
+@import "@styles/lavenes";
+
+.button {
+    &--primary {
+        width: 100%;
+        height: 48px;
+        background-color: $primary-button-color;
+        box-sizing: border-box;
+        width: 100%;
+        border-radius: 12px;
+
+        &__link {
+            font-size: 14px;
+            font-weight: 600;
+            color: #fff;
+        }
+    }
+}
