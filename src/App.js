@@ -2,6 +2,7 @@ import React from 'react';
 import RootStack from "./navigation/RootStack";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { GoogleOAuthProvider } from '@react-oauth/google';
 
 const firebaseConfig = {
    apiKey: "AIzaSyCSgpxNHXElnUfA5jeuS4FP0YQIAlvyK04",
@@ -14,12 +15,21 @@ const firebaseConfig = {
    databaseURL: "https://passbook-lavenes-default-rtdb.asia-southeast1.firebasedatabase.app/"
 };
 
+const googleAuth = {
+   clientId: "830626874390-hb47nkacuk4cn0c6pr788lri14s28jif.apps.googleusercontent.com",
+   clientSecrect: "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"
+}
+
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 
 function App() {
    return (
-      <RootStack />
+      <GoogleOAuthProvider
+         clientId={googleAuth.clientId}
+      >
+         <RootStack />
+      </GoogleOAuthProvider>
    );
 }
 

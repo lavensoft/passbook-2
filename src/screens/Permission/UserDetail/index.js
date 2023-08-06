@@ -13,10 +13,10 @@ export const UserDetail = () => {
     }, []);
 
     const fetchData = async () => {
-        // const principalId = window.ic.plug.sessionManager.sessionData.principalId;
-        const user = await API.User.get(principal);
+      //   // const principalId = window.ic.plug.sessionManager.sessionData.principalId;
+      //   const user = await API.User.get(principal);
 
-        console.log(user);
+      //   console.log(user);
     }
 
     const user = {

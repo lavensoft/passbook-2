@@ -19,50 +19,50 @@ export const ProductCategoryList = ({ title, id }) => {
     }, []);
 
     const fetchData = async () => {
-        switch(categoryId) {
-            case 'coming' : {
-                //*Fetch NFTs
-                let nfts = await API.NFT.getOwned();
+      //   switch(categoryId) {
+      //       case 'coming' : {
+      //           //*Fetch NFTs
+      //           let nfts = await API.NFT.getOwned();
 
-                nfts = nfts.filter(item => {
-                    let nftDate = new Date(item.date);
-                    let dateNow = new Date();
+      //           nfts = nfts.filter(item => {
+      //               let nftDate = new Date(item.date);
+      //               let dateNow = new Date();
 
-                    return (
-                        nftDate.getDate() == dateNow.getDate() &&
-                        nftDate.getMonth() == dateNow.getMonth() &&
-                        nftDate.getFullYear() == dateNow.getFullYear()
-                    )
-                })
+      //               return (
+      //                   nftDate.getDate() == dateNow.getDate() &&
+      //                   nftDate.getMonth() == dateNow.getMonth() &&
+      //                   nftDate.getFullYear() == dateNow.getFullYear()
+      //               )
+      //           })
 
-                setNFTs(nfts);
-                setCategoryTitle("Sự kiện");
-                setCategorySubtitle("Sự kiện sắp diễn ra");
-            } break;
-            case 'all' : {
-                //*Fetch NFTs
-                let nfts = await API.NFT.getOwned();
+      //           setNFTs(nfts);
+      //           setCategoryTitle("Sự kiện");
+      //           setCategorySubtitle("Sự kiện sắp diễn ra");
+      //       } break;
+      //       case 'all' : {
+      //           //*Fetch NFTs
+      //           let nfts = await API.NFT.getOwned();
 
-                setNFTs(nfts);
-                setCategoryTitle("NFTs");
-                setCategorySubtitle("NFTs và Vé của bạn");
-            } break;
-            default : {
-                //*Fetch NFTs
-                let nfts = await API.NFT.getAll();
+      //           setNFTs(nfts);
+      //           setCategoryTitle("NFTs");
+      //           setCategorySubtitle("NFTs và Vé của bạn");
+      //       } break;
+      //       default : {
+      //           //*Fetch NFTs
+      //           let nfts = await API.NFT.getAll();
 
-                //*Filter by category 
-                nfts = nfts.filter(item => item.category == categoryId && item.createdBy.toString() == item.owner.toString());
+      //           //*Filter by category 
+      //           nfts = nfts.filter(item => item.category == categoryId && item.createdBy.toString() == item.owner.toString());
         
-                setNFTs(nfts);
+      //           setNFTs(nfts);
         
-                //*Set titles
-                let categoryTitle = Config.VARIABLES.TICKET_CATEGORIES.find(item => item.value === categoryId).label;
+      //           //*Set titles
+      //           let categoryTitle = Config.VARIABLES.TICKET_CATEGORIES.find(item => item.value === categoryId).label;
         
-                setCategoryTitle(categoryTitle);
-                setCategorySubtitle("Category");
-            } break;
-        }
+      //           setCategoryTitle(categoryTitle);
+      //           setCategorySubtitle("Category");
+      //       } break;
+      //   }
     }
 
     return (

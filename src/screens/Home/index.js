@@ -21,21 +21,21 @@ export const HomeScreen = ({ match, navigation }) => {
 
 
     const fetchData = async () => {
-        //*Fetch balance
-        let balance = await API.PCB.balance();
-        setBalance(balance);
+      //   //*Fetch balance
+      //   let balance = await API.PCB.balance();
+      //   setBalance(balance);
 
-        //*Check preorder;
-        await API.NFT.checkPreorders();
+      //   //*Check preorder;
+      //   await API.NFT.checkPreorders();
 
-        let ownedNFT = await API.NFT.getOwned();
+      //   let ownedNFT = await API.NFT.getOwned();
 
-        setOwnedTickets(ownedNFT);
+      //   setOwnedTickets(ownedNFT);
 
-        //*Fetch User
-        let user = await API.User.get();
+      //   //*Fetch User
+      //   let user = await API.User.get();
 
-        setUserInfo(user[0]);
+      //   setUserInfo(user[0]);
     }   
 
     return (
@@ -70,7 +70,7 @@ export const HomeScreen = ({ match, navigation }) => {
                     title="Sự kiện nổi bật"
                 />
 
-                <FeatureCard to={`/items/${ownedTickets[0]?.id}`} id={`${ownedTickets[0]?.id}`} image={ ownedTickets[0]?.image }/>
+                <FeatureCard to={`/items/ownedTickets[0]?.id`} id={`ownedTickets[0]?.id`} image={ "ownedTickets[0]?.image" }/>
 
                 <SectionTitle
                     title="Sự kiện sắp diễn ra"

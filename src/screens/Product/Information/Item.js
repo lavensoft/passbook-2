@@ -43,22 +43,22 @@ export const ItemInformation = ({ title, id }) => {
     }, []);
 
     const fetchData = async () => {
-        //*Fetch NFTs
-        let nft = await API.NFT.get(id);
+      //   //*Fetch NFTs
+      //   let nft = await API.NFT.get(id);
 
-        setItemData(nft);
-        setIsOwned(nft.owned);
-        setIsTicket(nft.nftType === "ticket");
+      //   setItemData(nft);
+      //   setIsOwned(nft.owned);
+      //   setIsTicket(nft.nftType === "ticket");
 
-        console.log("A");
+      //   console.log("A");
 
-        //*Generate QR Ticket
-        if(nft.nftType === "ticket" && nft.owned && ( nft.owner.toString() != nft.createdBy.toString() )) setQRValue(`${nft.id}#${nft.owner}`)
+      //   //*Generate QR Ticket
+      //   if(nft.nftType === "ticket" && nft.owned && ( nft.owner.toString() != nft.createdBy.toString() )) setQRValue(`${nft.id}#${nft.owner}`)
     
-        //*Get category
-        console.log(Config.VARIABLES.TICKET_CATEGORIES);
-        let category = Config.VARIABLES.TICKET_CATEGORIES.find(item => item?.value == nft.category)?.label;
-        setCategory(category);
+      //   //*Get category
+      //   console.log(Config.VARIABLES.TICKET_CATEGORIES);
+      //   let category = Config.VARIABLES.TICKET_CATEGORIES.find(item => item?.value == nft.category)?.label;
+      //   setCategory(category);
     }
 
     const handlePurchase = async () => {

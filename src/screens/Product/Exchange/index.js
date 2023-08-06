@@ -18,12 +18,12 @@ export const Exchange = () => {
     }, []);
 
     const fetchData = async () => {
-        const ticket = await API.NFT.get(ticketIdParam);
-        const tokens = await API.NFT.getAll();
+      //   const ticket = await API.NFT.get(ticketIdParam);
+      //   const tokens = await API.NFT.getAll();
 
-        let ownedNFT = await API.NFT.getOwned();
+      //   let ownedNFT = await API.NFT.getOwned();
         
-        setTicket(ticket);
+      //   setTicket(ticket);
     }
 
     const handleExchange = async () => {

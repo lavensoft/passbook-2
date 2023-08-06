@@ -1,0 +1,65 @@
+.authButton {
+   padding: 2px 10px 2px 2px;
+   background-color: #1a73e8;
+   height: 42px;
+   cursor: pointer;
+   border-radius: 30px;
+   display: flex;
+   align-items: center;
+   transition: background-color .3s ease;
+
+   &:hover {
+       background-color: #1a73e8c2;
+   }
+
+   &.secondary {
+       background-color: rgb(238, 238, 238);
+
+       & .infoContainer {
+           & .title {
+               color: #222222;
+           }
+
+           & .subtitle {
+               color: #222222;
+           }
+       }
+   }
+
+   & .logoContainer {
+       width: 36px;
+       height: 36px;
+       margin-right: 12px;
+       background-color: #fff;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       border-radius: 50%;
+       background-position: center center;
+       background-repeat: no-repeat;
+       background-size: 60%;
+   }
+
+   & .infoContainer {
+       display: flex;
+       flex-direction: column;
+
+       & .title {
+           font-size: 12px;
+           letter-spacing: 0.25px;
+           color: #fff;
+           font-weight: 500;
+           flex-grow: 1;
+           text-overflow: ellipsis;
+           white-space: nowrap;
+       }
+
+       & .subtitle {
+           font-size: 11px;
+           font-weight: 400;
+           overflow: hidden;
+           text-overflow: ellipsis;
+           color: #fff;
+       }
+   }
+}

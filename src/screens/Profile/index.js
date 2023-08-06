@@ -17,18 +17,18 @@ export const ProfileScreen = () => {
     }, []);
 
     const fetchData = async () => {
-        //*Set NFT
-        let nftRes = await API.NFT.getAllOfUser(principalId);
-        setNFTs(nftRes);
+      //   //*Set NFT
+      //   let nftRes = await API.NFT.getAllOfUser(principalId);
+      //   setNFTs(nftRes);
 
-        //*Set categories
-        //*Group by category
-        let categories = nftRes.groupBy('category');
-        setCategories(categories);
+      //   //*Set categories
+      //   //*Group by category
+      //   let categories = nftRes.groupBy('category');
+      //   setCategories(categories);
 
-        //*Set User Info
-        let userRes = await API.User.get(principalId);
-        setUserInfo(userRes[0]);
+      //   //*Set User Info
+      //   let userRes = await API.User.get(principalId);
+      //   setUserInfo(userRes[0]);
     }
 
     return (

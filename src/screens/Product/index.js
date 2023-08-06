@@ -37,19 +37,19 @@ export const ProductMarket = () => {
     }, []);
 
     const fetchData = async () => {
-        //*Fetch NFTs
-        let nfts = await API.NFT.getAll();
+      //   //*Fetch NFTs
+      //   let nfts = await API.NFT.getAll();
 
-        //Filter owned
-        nfts = nfts.filter(item => item.createdBy.toString() == item.owner.toString() && item.privacy == "public");
+      //   //Filter owned
+      //   nfts = nfts.filter(item => item.createdBy.toString() == item.owner.toString() && item.privacy == "public");
 
-        setTickets(nfts);
-        setHotTickets(shuffle(nfts));
+      //   setTickets(nfts);
+      //   setHotTickets(shuffle(nfts));
 
-        //*Group by category
-        let categories = shuffle(nfts).groupBy('category')
+      //   //*Group by category
+      //   let categories = shuffle(nfts).groupBy('category')
 
-        setCategories(categories);
+      //   setCategories(categories);
     }
     
     return (

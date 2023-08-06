@@ -45,10 +45,10 @@ export const NFTCreateScreen = () => {
     }, []);
 
     const fetchData = async () => {
-        //*Fetch NFTs
-        const NFTs = await API.NFT.getCreatedNFTs();
+      //   //*Fetch NFTs
+      //   const NFTs = await API.NFT.getCreatedNFTs();
 
-        setNFTs(NFTs);
+      //   setNFTs(NFTs);
     }
 
     const handleUploadImage = async (e) => {

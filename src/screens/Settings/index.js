@@ -28,21 +28,21 @@ export const SettingsScreen = () => {
     }, []);
 
     const fetchData = async () => {
-      let userData = await API.User.get(principal);
-      userData = userData[0];
+      // let userData = await API.User.get(principal);
+      // userData = userData[0];
       
-      setFirstName(userData?.firstName);
-      setLastName(userData?.lastName);
-      setPhone(userData?.phone);
-      setDate(userData?.dateOfBirth);
-      setLiveIn(userData?.liveIn);
-      setSex(userData?.sex);
+      // setFirstName(userData?.firstName);
+      // setLastName(userData?.lastName);
+      // setPhone(userData?.phone);
+      // setDate(userData?.dateOfBirth);
+      // setLiveIn(userData?.liveIn);
+      // setSex(userData?.sex);
 
-      setAvatarPreview(userData?.avatar);
-      setAvatarUrl(userData?.avatar);
+      // setAvatarPreview(userData?.avatar);
+      // setAvatarUrl(userData?.avatar);
 
-      setBackgroundPreview(userData?.background);
-      setBackgroundUrl(userData?.background);
+      // setBackgroundPreview(userData?.background);
+      // setBackgroundUrl(userData?.background);
     }
 
     const handleSubmit = async () => {
