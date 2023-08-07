@@ -39,7 +39,10 @@ export const ActionBack = ({}) => {
 
 export const AvatarImage = ({ image }) => {
     return (
-        <button className="appbar__avatar-image" style={{background: `url(${image}) no-repeat center center / cover`}}>
+        <button onClick={() => {
+         localStorage.clear();
+         window.location.reload();
+        }} className="appbar__avatar-image" style={{background: `url(${image}) no-repeat center center / cover`}}>
         
         </button>
     )
