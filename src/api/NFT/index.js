@@ -43,31 +43,15 @@ export const NFT = {
       return res.reverse();
    },
    getAllOfUser: async (principalId) => {
-      //   let hero = await actor;
-      //   const { principal } = usePlug();
-      //   const id = principalId || principal;
-      //   let users = await hero.readAccount();
+      let res = await get(child(ref(getDatabase()), "tickets"));
 
-      // let res = await hero.getAllTokens();
+      res = Object.keys(res.val()).map(key => ({
+         ...res.val()[key]
+      }));
 
-      //   res = res.map(item => {
-      //       item.price = Math.round(Number(item.price) * 1000)/1000;
-      //       item.author = users.find(u => u.id?.toString() == item.createdBy?.toString());
+      res = res.filter(item => item.createdBy.email === principalId);
 
-      //       return item;
-      //   });
-
-      //   res = res.filter(item => {
-      //       if(item.createdBy.toString() == id && item.owner.toString() == id) {
-      //           item.price = Math.round(Number(item.price) * 1000)/1000;
-
-      //           return item;
-      //       }
-
-      //       return false;
-      //   })
-
-      //   return res.reverse();
+      return res.reverse();
    },
    getAllTickets: async () => {
       //   let hero = await actor;
@@ -134,33 +118,15 @@ export const NFT = {
       return res.reverse();
    },
    getCreatedNFTs: async () => {
-      //   let hero = await actor;
+      let res = await get(child(ref(getDatabase()), "tickets"));
 
-      //   let users = await hero.readAccount();
+      res = Object.keys(res.val()).map(key => ({
+         ...res.val()[key]
+      }));
 
-      // let res = await hero.getAllTokens();
+      res = res.filter(item => item.createdBy.email === JSON.parse(localStorage.getItem("@user")).email);
 
-      //   res = res.map(item => {
-      //       item.price = Math.round(Number(item.price) * 1000)/1000;
-      //       item.author = users.find(u => u.id?.toString() == item.createdBy?.toString());
-
-      //       return item;
-      //   });
-
-      //   res = res.filter(item => {
-      //       let itemCreated = item.createdBy.toString();
-      //       let principal = window.ic?.plug?.sessionManager?.sessionData?.principalId;
-
-      //       if(item.nftType === "nft" && itemCreated == principal) {
-      //           item.price = Math.round(Number(item.price) * 1000)/1000;
-
-      //           return item;
-      //       }
-
-      //       return false;
-      //   })
-
-      //   return res.reverse();
+      return res.reverse();
    },
    get: async (id) => {
       let res = await get(child(ref(getDatabase()), `tickets/${id}`));
@@ -187,13 +153,17 @@ export const NFT = {
 
       //   return res;
    },
-   purchase: async (tokenId, supplies) => {
-      //   const { requestTransfer } = usePlug();
-      //   let hero = await actor;
+   purchase: async (ticket, supplies) => {
+      let metadata = {
+         ...ticket,
+         id: ticket.id + randomStr(5),
+         supplies,
+         owner: JSON.parse(localStorage.getItem("@user")),
+         nftType: "ticket",
+         checkin: false
+      }
 
-      //   const res = await hero.purchaseNFT(tokenId, supplies, randomStr(5));
-
-      //   return res;
+      set(ref(getDatabase(), "tickets/" + metadata.id), metadata);
    },
    checkinTicket: async (ticketCode) => {
       //   console.log("VERIFYING...");

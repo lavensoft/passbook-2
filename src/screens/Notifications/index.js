@@ -12,7 +12,7 @@ export const Notifications = ({ match, navigation }) => {
         onValue(starCountRef, (snapshot) => {
             const data = snapshot.val();
             
-            setNotifications(data);
+            setNotifications(data || {});
         });
     }, []);
 
@@ -29,10 +29,11 @@ export const Notifications = ({ match, navigation }) => {
                     <GridView
                         itemCount = {1}
                         items={
-                            Object.keys(notifications).map((key, index) => {
+                            // eslint-disable-next-line array-callback-return
+                            Object.keys(notifications)?.forEach((key, index) => {
                                 let item = notifications[key];
 
-                                if(item.to == "window.ic.plug.sessionManager.sessionData.principalId") {
+                                if(item.to === JSON.parse(localStorage.getItem("@user")).email) {
                                     return (
                                         <Link to={`/notifications/${key}`}>
                                             <div key={`item-notification-${index}`} style={{position: "relative"}}>

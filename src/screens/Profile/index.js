@@ -17,18 +17,18 @@ export const ProfileScreen = () => {
     }, []);
 
     const fetchData = async () => {
-      //   //*Set NFT
-      //   let nftRes = await API.NFT.getAllOfUser(principalId);
-      //   setNFTs(nftRes);
+        //*Set NFT
+        let nftRes = await API.NFT.getAllOfUser(principalId);
+        setNFTs(nftRes);
 
-      //   //*Set categories
-      //   //*Group by category
-      //   let categories = nftRes.groupBy('category');
-      //   setCategories(categories);
+        //*Set categories
+        //*Group by category
+        let categories = nftRes.groupBy('category');
+        setCategories(categories);
 
-      //   //*Set User Info
-      //   let userRes = await API.User.get(principalId);
-      //   setUserInfo(userRes[0]);
+        //*Set User Info
+        let userRes = nftRes[0].createdBy;
+        setUserInfo(userRes);
     }
 
     return (
@@ -37,15 +37,15 @@ export const ProfileScreen = () => {
                 leading={
                     <AppBar.ActionBack />
                 }
-                title={ `${userInfo?.firstName || ""} ${userInfo?.lastName || ""}` }
+                title={ `${userInfo?.name || ""}` }
                 fixed
             />
 
             <div className="profile-view">
                 <div className="profile-view__user-info-container">
-                    <div className="profile-view__user-info-container__background" style={{backgroundImage: `url(${ userInfo?.background })`}}></div>
+                    <div className="profile-view__user-info-container__background" style={{backgroundImage: `url(https://w0.peakpx.com/wallpaper/132/837/HD-wallpaper-mac-os-ventura-light-8k-macos-ventura-macbook-apple-computer.jpg)`}}></div>
                     <div className="profile-view__user-info-container__user-info">
-                        <div className="profile-view__user-info-container__user-info__avatar" style={{background: `url(${ userInfo?.avatar }) no-repeat center center / cover`}}></div>
+                        <div className="profile-view__user-info-container__user-info__avatar" style={{background: `url(${ userInfo?.picture }) no-repeat center center / cover`}}></div>
                         <div style={{ position: "relative", width: "100%" }} className="profile-view__user-info-container__user-info__detail">
                             <span className="profile-view__user-info-container__user-info__detail__name">{userInfo?.firstName || ""} {userInfo?.lastName || ""}</span>
                             <span className="profile-view__user-info-container__user-info__detail__principal">{ userInfo?.id?.toString() }</span>

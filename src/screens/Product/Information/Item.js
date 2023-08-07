@@ -46,13 +46,15 @@ export const ItemInformation = ({ title, id }) => {
         //*Fetch NFTs
         let nft = await API.NFT.get(id);
 
+        console.log(nft);
+
         setItemData(nft);
         setIsOwned(nft.owned);
         setIsTicket(nft.nftType === "ticket");
 
         //*Generate QR Ticket
-        if(nft.nftType === "ticket" && nft.owned && ( nft.owner.toString() != nft.createdBy.toString() )) setQRValue(`${nft.id}#${nft.owner}`)
-    
+        if(nft.nftType === "ticket" && nft.owned && ( nft.owner.email != nft.createdBy.email )) setQRValue(`${nft.id}#${nft.owner}`)
+
         //*Get category
         let category = Config.VARIABLES.TICKET_CATEGORIES.find(item => item?.value == nft.category)?.label;
         setCategory(category);
@@ -61,26 +63,24 @@ export const ItemInformation = ({ title, id }) => {
     const handlePurchase = async () => {
         const db = getDatabase();
 
-        await API.NFT.purchase(id, amount).then(async res => {
+        await API.NFT.purchase(itemData, amount).then(async res => {
             Swal.fire(
                 'Đã mua thành công!',
                 'Vé đã nằm trong ví của bạn',
                 'success'
             );
 
-            let fromData = await API.User.get();
+            let fromData = JSON.parse(localStorage.getItem("@user"));
 
             set(ref(db, 'notifications/' + randomStr(20)), {
-                from:" window.ic.plug.sessionManager.sessionData.principalId",
-                to: res.createdBy.toString(),
-                content: "Hello From Nhats",
-                icon: fromData[0]?.avatar
+                from: fromData.email,
+                to: itemData.createdBy.email,
+                content: `${fromData.name} đã mua vé sự kiện của bạn`,
+                icon: fromData.picture
             });
         });
     }
 
-
-    const ticketMeta = itemData;
 
     const handleClick = (action) => {
         switch (action.name) {
@@ -93,25 +93,27 @@ export const ItemInformation = ({ title, id }) => {
         }
     }
 
+   if(!itemData.createdBy) return null;
+
 
     return (
-        <View className="item-information-screen" overlay layoutId={`card-container-${id}`} backdropImage={ ticketMeta?.image } style={{backgroundColor: '#f5f5f5', paddingTop: 86}}>
+        <View className="item-information-screen" overlay layoutId={`card-container-${id}`} backdropImage={ itemData?.image } style={{backgroundColor: '#f5f5f5', paddingTop: 86}}>
             <AppBar.AppBar 
                 leading={
                     <AppBar.ActionBack />
                 }
-                title={ `${ticketMeta?.name}` }
+                title={ `${itemData?.name}` }
                 fixed
             />
             <motion.div className="card-content" style={{width: '100%'}} animate>
-                <motion.div
+                <motion.img
                     className="card-image-container"
                     layoutId={`card-image-container-${id}`}
+                    src={itemData?.image}
                     style={{
-                        backgroundImage: `url(${ticketMeta?.image})`
+                     marginTop: 0
                     }}
-                >
-                </motion.div>
+                />
                 <motion.div
                     className="title-container"
                     layoutId={`title-container-${id}`}
@@ -120,9 +122,9 @@ export const ItemInformation = ({ title, id }) => {
                     <h2>Meebit #15326</h2>
                 </motion.div>
                 <motion.div className="content-container" animate>
-                    <motion.span className="title">{ ticketMeta?.name }</motion.span>
-                    <PriceTitle price={ ticketMeta?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } currency={ Config.TOKEN.SYMBOL } />
-                    <CreatorCard to={`/users/${ticketMeta?.createdBy}`} image={ticketMeta?.author?.picture} name={ `${ticketMeta?.author?.name || ""} ${ticketMeta?.author?.lastName || ""}` }/>
+                    <motion.span className="title">{ itemData?.name }</motion.span>
+                    <PriceTitle price={ itemData?.price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } currency={ Config.TOKEN.SYMBOL } />
+                    <CreatorCard to={`/users/${itemData?.createdBy.email}`} image={itemData?.author?.picture} name={ `${itemData?.author?.name || ""} ${itemData?.author?.lastName || ""}` }/>
                     <ActionsGroup.Group>
                         {actions.map((action, index) => {
                             return <ActionsGroup.Button key={index} onClick={() => handleClick(action)} name={action.name} icon={action.icon}/>
@@ -148,13 +150,13 @@ export const ItemInformation = ({ title, id }) => {
 
                     <SectionTitle title="Description" style={{ marginTop: 40 }}/>
 
-                    <p style={{ margin: 0, marginTop: 16, fontSize: 14}}>{ ticketMeta?.description }</p>
+                    <p style={{ margin: 0, marginTop: 16, fontSize: 14}}>{ itemData?.description }</p>
 
                     <SectionTitle title="Details" style={{ marginTop: 40 }}/>
 
                     <InformationGroup.Group>
                         {
-                            ticketMeta?.details?.split("\n").map((item, index) => {
+                            itemData?.details?.split("\n").map((item, index) => {
                                 let title = item?.split(":")[0];
                                 let value = item?.split(":")[1];
 
@@ -166,7 +168,7 @@ export const ItemInformation = ({ title, id }) => {
                             })
                         }
                         {
-                            ticketMeta?.gifts?.map((item, index) => {
+                            itemData?.gifts?.map((item, index) => {
                                 return <InformationGroup.Item 
                                     title= { item?.name } 
                                     subtitle={ item?.description } 
@@ -185,11 +187,11 @@ export const ItemInformation = ({ title, id }) => {
                                 <InformationGroup.Group>
                                     <InformationGroup.Item 
                                         title = "Created At"
-                                        value = { ticketMeta?.dateCreated }
+                                        value = { itemData?.dateCreated }
                                     />
                                     <InformationGroup.Item 
                                         title = "Token ID"
-                                        value = { ticketMeta?.id }
+                                        value = { itemData?.id }
                                     />
                                 </InformationGroup.Group>
                             </>
@@ -197,21 +199,21 @@ export const ItemInformation = ({ title, id }) => {
                     }
 
                     { isTicket && <Ticket
-                        title={ ticketMeta?.name }
-                        description={ ticketMeta?.description }
-                        place={ ticketMeta?.place }
-                        date={ ticketMeta?.date }
-                        time={ ticketMeta?.time }
-                        datePre={ ticketMeta?.date }
-                        timePre={ ticketMeta?.time }
-                        price={ ticketMeta?.price }
-                        section={ ticketMeta?.section }
-                        seat={ ticketMeta?.seat }
-                        order={ ticketMeta?.order }
+                        title={ itemData?.name }
+                        description={ itemData?.description }
+                        place={ itemData?.place }
+                        date={ itemData?.date }
+                        time={ itemData?.time }
+                        datePre={ itemData?.date }
+                        timePre={ itemData?.time }
+                        price={ itemData?.price }
+                        section={ itemData?.section }
+                        seat={ itemData?.seat }
+                        order={ itemData?.order }
                         qrValue={ qrValue }
-                        preorder={`${(ticketMeta?.preorder.preorder || null) && `${ticketMeta?.preorder.end} ${ticketMeta?.preorder.endTime}`}`}
-                        supplies={ ticketMeta?.supplies.toString() }
-                        checkin={ ticketMeta?.checkin }
+                        preorder={`${(itemData?.preorder.preorder || null) && `${itemData?.preorder.end} ${itemData?.preorder.endTime}`}`}
+                        supplies={ itemData?.supplies.toString() }
+                        checkin={ itemData?.checkin }
                         category={ category }
                     /> } 
                     {/* <Button style={{ marginTop: 32 }} to={'/checkin'}>Check in</Button> */}

@@ -78,7 +78,7 @@ export const Connect = ({ match, navigation }) => {
                   theme="filled_blue"
                   onSuccess={onSuccess}
                   onFailure={onFail}
-                  hosted_domain="fpt.edu.vn"
+                  // hosted_domain="fpt.edu.vn"
                   // auto_select={true}
                   useOneTap={true}
                />

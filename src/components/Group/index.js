@@ -5,7 +5,7 @@ import { IoChevronForward } from 'react-icons/io5';
 
 import "./styles.scss";
 
-export const GridView = ({ style, gap, items, itemCount = 2, horizontal }) => {
+export const GridView = ({ style, gap, items=[], itemCount = 2, horizontal }) => {
     const gridKey = randomStr(5);
 
     return (
