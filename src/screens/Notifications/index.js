@@ -30,15 +30,15 @@ export const Notifications = ({ match, navigation }) => {
                         itemCount = {1}
                         items={
                             // eslint-disable-next-line array-callback-return
-                            Object.keys(notifications)?.forEach((key, index) => {
+                            Object.keys(notifications)?.map((key, index) => {
                                 let item = notifications[key];
 
                                 if(item.to === JSON.parse(localStorage.getItem("@user")).email) {
                                     return (
                                         <Link to={`/notifications/${key}`}>
                                             <div key={`item-notification-${index}`} style={{position: "relative"}}>
-                                                <img src={item.icon} style={{width: 64, borderRadius: "10px", height: 64 }}/>
-                                                <label style={{position: "absolute", top: "10px", left: "23%"}}>{item.content}</label>
+                                                <img src={item.icon} style={{width: 54, borderRadius: "50%", height: 54 }}/>
+                                                <label style={{position: "absolute", top: "10px", left: "23%", color: "#000", fontSize: 15}}>{item.content}</label>
                                             </div>
                                         </Link>
                                     )

@@ -3,7 +3,7 @@ import { Config } from '@config';
 import API from '@api';
 import Axios from 'axios';
 import { stringToSlug, randomStr } from '@utils';
-import { getDatabase, set, ref, get, child } from 'firebase/database';
+import { getDatabase, set, ref, get, child, push, update } from 'firebase/database';
 
 export const NFT = {
    mint: async (name, imageUrl, place, date, time, price, description, gifts, details, type, category, privacy, preorder, supplies) => {
@@ -49,7 +49,7 @@ export const NFT = {
          ...res.val()[key]
       }));
 
-      res = res.filter(item => item.createdBy.email === principalId);
+      res = res.filter(item => item.owner.email === principalId);
 
       return res.reverse();
    },
@@ -209,11 +209,21 @@ export const NFT = {
       //   }
    },
    swap: async (from, to) => {
-      //   let hero = await actor;
+      let fromTicket = await NFT.get(from);
+      let toTicket = await NFT.get(to);
 
-      //   let res = await hero.swapNFT(from, to);
+      const updates = {
+         [`tickets/${from}`]: {
+            ...fromTicket,
+            owner: toTicket.owner
+         },
+         [`tickets/${to}`]: {
+            ...toTicket,
+            owner: fromTicket.owner
+         }
+      };
 
-      //   return res;
+      return update(ref(getDatabase()), updates);
    },
    transfer: async (from, to, tokenId) => {
       //   let hero = await actor;

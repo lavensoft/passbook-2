@@ -35,11 +35,14 @@ export const SwapNFT = () => {
     }, []);
 
     const fetchData = async () => {
-      //   const array1 = await API.NFT.getAllOfUser();
-      //   const array2 = await API.NFT.getAllOfUser(pricipalId);
+        const array1 = await API.NFT.getAllOfUser(JSON.parse(localStorage.getItem("@user")).email);
+        const array2 = await API.NFT.getAllOfUser(pricipalId);
 
-      //   setTicketOfUser(array1);
-      //   setTicketOfOther(array2);
+        console.log(array1);
+        console.log(array2);
+
+        setTicketOfUser(array1);
+        setTicketOfOther(array2);
     }
 
     useEffect(() => {
