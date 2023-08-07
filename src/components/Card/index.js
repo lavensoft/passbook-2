@@ -67,7 +67,7 @@ export const BalanceCard = ({ style, onClick, to="#", balance }) => {
         <div className="card--balance" style={ style } onClick={onClick}>
             <Link to={to}>
                 <div className="card--balance__content">
-                    <span className="card--balance__content__title">Total Balance</span>
+                    <span className="card--balance__content__title">Số tiền hiện có</span>
                     
                     <div className="card--balance__content__balance-container">
                         <span className="card--balance__content__balance-container__balance">{ balance.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") } {Config.TOKEN.SYMBOL}</span>

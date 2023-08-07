@@ -53,7 +53,7 @@ export const ItemInformation = ({ title, id }) => {
         setIsTicket(nft.nftType === "ticket");
 
         //*Generate QR Ticket
-        if(nft.nftType === "ticket" && nft.owned && ( nft.owner.email != nft.createdBy.email )) setQRValue(`${nft.id}#${nft.owner}`)
+        if(nft.nftType === "ticket" && nft.owned && ( nft.owner.email != nft.createdBy.email )) setQRValue(`${nft.id}#${nft.owner.email}`)
 
         //*Get category
         let category = Config.VARIABLES.TICKET_CATEGORIES.find(item => item?.value == nft.category)?.label;

@@ -24,9 +24,9 @@ export const Config = {
                 label: "Điện Ảnh",
                 value: "movie"
             }, {
-                label: "Nghệ Thuật",
-                value: "art"
-            }
+               label: "Công Nghệ",
+               value: "tech"
+           }
         ]
     },
     MOTOKO: {

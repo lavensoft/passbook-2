@@ -175,6 +175,18 @@ export const NFT = {
       //   console.log(ticketCode.split("#")[1]);
 
       //   return await hero.checkinTicket(ticketId, principalId);
+
+      let ticketId = ticketCode.split("#")[0];
+      let ticket = await NFT.get(ticketId);
+
+      const updates = {
+         [`tickets/${ticketId}`]: {
+            ...ticket,
+            checkin: true
+         },
+      };
+
+      return update(ref(getDatabase()), updates);
    },
    checkPreorders: async () => {
       //   let hero = await actor;

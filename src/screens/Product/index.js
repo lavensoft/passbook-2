@@ -62,13 +62,13 @@ export const ProductMarket = () => {
 
             <View>
                 <Title
-                    subtitle="Shop now !!!"
-                    title="Marketplace"
+                    subtitle="Tham gia sự kiện nào !!!"
+                    title="Cửa Hàng NFT"
                 />
 
-                <TextInput placeholder="Search" icon={<IoSearch/>}/>
+                <TextInput placeholder="Tìm kiếm" icon={<IoSearch/>}/>
 
-                <Button style={{marginTop: 32}} to="/product/create">Create</Button>
+                <Button style={{marginTop: 32}} to="/product/create">Tạo sự kiện</Button>
 
                 <Button style={{marginTop: 32}} to="/product/sale">Create sale events</Button>
 
@@ -99,7 +99,7 @@ export const ProductMarket = () => {
                 <FeatureCard to={`/items/${tickets[0]?.id}`} image={tickets[0]?.image}/>
 
                 <SectionTitle
-                    title="Hot Events"
+                    title="Sự kiện nổi bật"
                 />
                 <ScrollView
                     horizontal
@@ -123,7 +123,7 @@ export const ProductMarket = () => {
                 </ScrollView>
 
                 <SectionTitle
-                    title="Hot Event Highlights"
+                    title="Sự kiện trong tháng"
                 />
                 <ScrollView
                     horizontal
@@ -147,7 +147,7 @@ export const ProductMarket = () => {
                 </ScrollView>
 
                 <SectionTitle
-                    title="Categories nổi bật"
+                    title="Loại nổi bật"
                 />
                 <ScrollView
                     horizontal
