@@ -8,6 +8,8 @@ import axios from 'axios';
 import { sign } from '@noble/ed25519';
 import { Connection, Keypair } from '@solana/web3.js';
 import { Elusiv, SEED_MESSAGE } from '@elusiv/sdk';
+import { WalletConfigError } from '@solana/wallet-adapter-base';
+import { Config } from '../../config';
 
 export const AuthButton = ({ title, onSuccess, onFailure, platform, secondary, subtitle, to = "#", icon = "another" }) => {
    const providers = {
@@ -38,19 +40,33 @@ export const AuthButton = ({ title, onSuccess, onFailure, platform, secondary, s
 }
 
 export const Connect = ({ match, navigation }) => {
+   const connect = async () => {
+      let SolflareClass;
+
+      SolflareClass = (await import("@solflare-wallet/sdk")).default;
+
+      let wallet;
+
+      try {
+         const config = {
+            network: Config.NETWORK,
+         };
+
+         wallet = new SolflareClass({ network: config.network });
+
+         if (!wallet.connected) {
+            await wallet.connect();
+
+            console.log(wallet);
+         }
+      } catch (error) {
+         throw new WalletConfigError(error?.message, error);
+      }
+   };
+
    useEffect(() => {
       (async () => {
-         const userKp = Keypair.generate();
 
-         // Generate the input seed. Remember, this is almost as important as the private key, so don't log this!
-         // (Slice because in Solana's keypair type the first 32 bytes is the privkey and the last 32 is the pubkey)
-         const seed = await sign(
-             Buffer.from(SEED_MESSAGE, 'utf-8'),
-             userKp.secretKey.slice(0, 32),
-         );
-         
-         // Create the elusiv instance
-         const elusiv = await Elusiv.getElusivInstance(seed, userKp.publicKey, new Connection('https://api.devnet.solana.com'), 'devnet');
       })();
    }, []);
 
@@ -92,7 +108,8 @@ export const Connect = ({ match, navigation }) => {
                justifyContent: "center",
                marginTop: 33
             }}>
-               <GoogleLogin
+               <button onClick={connect}>Connect</button>
+               {/* <GoogleLogin
                   shape="circle"
                   theme="filled_blue"
                   onSuccess={onSuccess}
@@ -100,7 +117,7 @@ export const Connect = ({ match, navigation }) => {
                   // hosted_domain="fpt.edu.vn"
                   // auto_select={true}
                   useOneTap={true}
-               />
+               /> */}
             </div>
          </View>
       </>

@@ -1,3 +1,5 @@
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
+
 export const Config = {
     PINATA: {
         KEY: "b79996cffde5cbf6af44",
@@ -6,6 +8,7 @@ export const Config = {
     },
     WEB3_STORAGE_TOKEN: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDdGMTE3NjRkRDVCMTA0MmIyMGRmOTU1MTJkRkVhNEM1NDBkNzFmNUQiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NjEwODc1ODU2NDUsIm5hbWUiOiJQYXNzQm9vayJ9.EsfX2F-UA0uh7x86QV0NUGLAO6Mbu0WcDWwQg0fmY4k",
     IPFS_LINK: "https://dweb.link/ipfs/",
+    NETWORK: WalletAdapterNetwork.Testnet,
     VARIABLES: {
         TICKET_TYPES: [
             {

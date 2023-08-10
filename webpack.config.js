@@ -64,7 +64,9 @@ module.exports = {
         "https": require.resolve("https-browserify"),
         "os": require.resolve("os-browserify"),
         "url": require.resolve("url"),
-        "process": require.resolve("process")
+        "process": require.resolve("process"),
+        "path": require.resolve("path-browserify"),
+        "zlib": require.resolve("browserify-zlib")
       },
 	  extensions: ["*", ".js", ".jsx", ".ts", ".tsx"],
   }

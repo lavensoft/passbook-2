@@ -3,6 +3,7 @@ import RootStack from "./navigation/RootStack";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { SolanaProvider } from './providers/SolanaProvider';
 
 const firebaseConfig = {
    apiKey: "AIzaSyCSgpxNHXElnUfA5jeuS4FP0YQIAlvyK04",
@@ -25,11 +26,13 @@ const analytics = getAnalytics(app);
 
 function App() {
    return (
-      <GoogleOAuthProvider
-         clientId={googleAuth.clientId}
-      >
-         <RootStack />
-      </GoogleOAuthProvider>
+      <SolanaProvider>
+         <GoogleOAuthProvider
+            clientId={googleAuth.clientId}
+         >
+            <RootStack />
+         </GoogleOAuthProvider>
+      </SolanaProvider>
    );
 }
 
