@@ -1,0 +1,91 @@
+.feedcard {
+   padding: 15px;
+   border-radius: 12px;
+   background-color: white;
+   border: 1px solid #D8D8DF;
+   box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 12px;
+
+   & .info {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      & .user {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+
+         & .avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+         }
+
+         & .name {
+            margin-left: 9px;
+            color: #232323;
+            font-size: 14px;
+            font-weight: 600;
+         }
+      }
+
+      & .meta {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         gap: 6px;
+
+         & .meta-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(0, 0, 0, 0.6);
+            font-size: 12px;
+            font-weight: 500;
+
+            & .icon {
+               font-size: 12px;
+               margin-right: 3px;
+            }
+         }
+      }
+   }
+
+   & .content {
+      & .content-p {
+         font-size: 15px;
+         margin-top: 16px;
+         margin-bottom: 24px;
+         color: #232323;
+      }
+
+      & img {
+         width: 100%;
+         margin-bottom: 18px;
+         border-radius: 9px;
+      }
+   }
+
+   & .action {
+      display: flex;
+      margin-bottom: 3px;
+
+      & .action-item {
+         flex: 1;
+
+         & .title {
+            font-size: 15px;
+            color: #232323;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            & .icon {
+               font-size: 18px;
+               margin-right: 6px;
+            }
+         }
+      }
+   }
+}

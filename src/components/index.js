@@ -15,6 +15,8 @@ import { Notification } from './Notification';
 import { Back } from './Back';
 import * as TabBadge from './TabBadge';
 import { Modal } from "./Modal"
+import { FeedForm } from './Form/FeedForm';
+import { FeedCard } from './FeedCard';
 
 export {
     AppBar,
@@ -56,5 +58,7 @@ export {
     Notification,
 
     Back,
-    Modal
+    Modal,
+    FeedForm,
+    FeedCard
 }

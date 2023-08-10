@@ -7,10 +7,12 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
 import "./styles.scss";
-import { Connection, Keypair, LAMPORTS_PER_SOL, clusterApiUrl } from '@solana/web3.js';
-import { TOKEN_PROGRAM_ID, createMint, getAccount, getOrCreateAssociatedTokenAccount, mintTo } from '@solana/spl-token';
+import { Connection, Keypair, LAMPORTS_PER_SOL, Transaction, clusterApiUrl, sendAndConfirmTransaction } from '@solana/web3.js';
+import { AuthorityType, TOKEN_PROGRAM_ID, createMint, createSetAuthorityInstruction, getAccount, getOrCreateAssociatedTokenAccount, mintTo, setAuthority, transfer } from '@solana/spl-token';
 import { SolanaContext } from '../../../context';
 import { getMintAccount } from '@elusiv/sdk';
+import { useWallet } from '@solana/wallet-adapter-react';
+import { Metaplex, bundlrStorage, keypairIdentity } from '@metaplex-foundation/js';
 
 export const NFTCreateScreen = () => {
     const { principal } = usePlug();
@@ -43,10 +45,13 @@ export const NFTCreateScreen = () => {
     const [supplies, setSupplies] = useState(0);
 
     const [isLoading, setIsLoading] = useState(false);
-    const wallet = useContext(SolanaContext);
+    const walletCtx = useContext(SolanaContext);
+   //  const { wallet } = useWallet();
 
     useEffect(() => {
         fetchData();
+
+      //   console.log(wallet);
     }, []);
 
     const fetchData = async () => {
@@ -94,15 +99,133 @@ export const NFTCreateScreen = () => {
       //       navigate(-1);
       //   });
 
+      console.log("Mining...");
+      const connection = new Connection(
+         clusterApiUrl(Config.NETWORK),
+         'confirmed'
+      );
+
+      const fromWallet = Keypair.generate();
+
+      console.log("Generate...");
+
+      const metaplex = Metaplex.make(connection)
+      .use(keypairIdentity(fromWallet))
+      .use(bundlrStorage());
+
+      console.log("Plex...");
+   
+      const airdropSignature = await connection.requestAirdrop(
+         fromWallet.publicKey,
+         LAMPORTS_PER_SOL,
+      );
+
+      console.log("Airdrop...");
+       
+      await connection.confirmTransaction(airdropSignature);
+
+      // // //*========= [ CREATE NFT ] ===============
+      // const mint = await createMint(
+      //    connection,
+      //    fromWallet,
+      //    fromWallet.publicKey,
+      //    null,
+      //    0
+      // );
+
+      // console.log(`NFT: ${mint.toBase58()}`);
+
+      const { nft } = await metaplex.nfts().create({
+         uri: "https://passbook.com/nhatsnfthehe",
+         image: "https://i.imgur.com/K8gaTha.png",
+         name: "My NFT 2",
+         description: "My description 2",
+         sellerFeeBasisPoints: 500, // Represents 5.00%.
+     });
+
+     console.log(nft);
+
+     const mint = nft.mint.address;
+
+     console.log(mint.toBase58());
+
+      // Get the token account of the "fromWallet" Solana address. If it does not exist, create it.
+      const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
+         connection,
+         fromWallet,
+         mint,
+         fromWallet.publicKey
+      );
+
+      console.log("CREATED");
+
+      // Get the token account of the "toWallet" Solana address. If it does not exist, create it.
+      const toTokenAccount = await getOrCreateAssociatedTokenAccount(
+         connection,
+         fromWallet,
+         mint,
+         walletCtx.publicKey
+      );
+
+      console.log("TO ACCOUNT");
+
+      // Minting 1 new token to the "fromTokenAccount" account we just returned/created.
+      let signature = await mintTo(
+         connection,
+         fromWallet,               // Payer of the transaction fees 
+         mint,                     // Mint for the account 
+         fromTokenAccount.address, // Address of the account to mint to 
+         fromWallet.publicKey,     // Minting authority
+         1                         // Amount to mint 
+      );
+
+      console.log("MITING 1");
+      
+      await setAuthority(
+         connection,
+         fromWallet,            // Payer of the transaction fees
+         mint,                  // Account 
+         fromWallet.publicKey,  // Current authority 
+         0,                     // Authority type: "0" represents Mint Tokens 
+         null                   // Setting the new Authority to null
+      );
+
+      console.log("AUTH");
+      
+      signature = await transfer(
+         connection,
+         fromWallet,               // Payer of the transaction fees 
+         fromTokenAccount.address, // Source account 
+         toTokenAccount.address,   // Destination account 
+         fromWallet.publicKey,     // Owner of the source account 
+         1                         // Number of tokens to transfer 
+      );
+
+      console.log(fromWallet.publicKey.toBase58());
+
+      console.log("DONE!!!");
+
+      // const nft = await metaplex.nfts().findByMint({ mintAddress: mint });
+      // console.log(nft);
+
+      // const { uri } = await metaplex.nfts().uploadMetadata({
+      //    name: "My NFT",
+      //    description: "My description",
+      //    image: "https://i.imgur.com/K8gaTha.png",
+      // });
+
+      // console.log(uri);
+
+      // await metaplex.nfts().update({ 
+      //    nftOrSft: nft,
+      //    name: "My Updated Name"
+      // });
+      // console.log("TRANSFERED");
+
       //*========= [ CREATE FUG TOKEN ] =========
       // const payer = Keypair.generate();
       // const mintAuthority = Keypair.generate();
       // const freezeAuthority = Keypair.generate();
-
-      // const connection = new Connection(
-      //    clusterApiUrl(Config.NETWORK),
-      //    'confirmed'
-      // );
    
       // const airdropSignature = await connection.requestAirdrop(
       //    payer.publicKey,
@@ -119,7 +242,7 @@ export const NFTCreateScreen = () => {
       //    9 // We are using 9 to match the CLI decimal default exactly
       // );   
 
-      // console.log(`NFT: ${mint.toBase58()}`)
+      // console.log(`TOKEN: ${mint.toBase58()}`)
 
       // //Create token account
       // const tokenAccount = await getOrCreateAssociatedTokenAccount(

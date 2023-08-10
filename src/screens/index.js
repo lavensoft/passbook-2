@@ -20,10 +20,12 @@ import { QRScanScreen } from './QRScan';
 
 import { ProfileScreen } from './Profile';
 import { ManagementView } from "./Product/Management"
+import { FeedPage } from './Feed';
 
 const Screens =  {
     Home: HomeScreen,
     Settings: SettingsScreen,
+    Feed: FeedPage,
     Product: {
         Market: ProductMarket,
         Information: {
