@@ -150,8 +150,8 @@ export const NFT = {
          privacy,
          preorder,
          supplies,
-         owner: walletPublicKey,
-         createdBy: walletPublicKey,
+         owner: JSON.parse(localStorage.getItem("@user")),
+         createdBy: JSON.parse(localStorage.getItem("@user")),
          dateCreated: new Date().toISOString(),
          checkin: false
       }
@@ -172,8 +172,8 @@ export const NFT = {
          category,
          privacy,
          supplies,
-         owner: walletPublicKey,
-         createdBy: walletPublicKey,
+         owner: JSON.parse(localStorage.getItem("@user")),
+         createdBy: JSON.parse(localStorage.getItem("@user")),
          dateCreated: new Date().toISOString(),
          checkin: false
       }

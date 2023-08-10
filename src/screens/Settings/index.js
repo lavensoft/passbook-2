@@ -31,41 +31,42 @@ export const SettingsScreen = () => {
 
     const fetchData = async () => {
       const { publicKeyStr } = wallet;
+      const user = JSON.parse(localStorage.getItem("@user"));
 
-      let userData = await API.User.get(publicKeyStr);
-      setFirstName(userData?.firstName);
-      setLastName(userData?.lastName);
-      setPhone(userData?.phone);
-      setDate(userData?.dateOfBirth);
-      setLiveIn(userData?.liveIn);
-      setSex(userData?.sex);
+      console.log(user);
 
-      setAvatarPreview(userData?.avatar);
-      setAvatarUrl(userData?.avatar);
+      // let userData = await API.User.get(publicKeyStr);
+      // setFirstName(userData?.firstName);
+      setLastName(user?.name);
+      // setPhone(userData?.phone);
+      // setDate(userData?.dateOfBirth);
+      // setLiveIn(userData?.liveIn);
+      // setSex(userData?.sex);
 
-      setBackgroundPreview(userData?.background);
-      setBackgroundUrl(userData?.background);
+      setAvatarPreview(user?.picture);
+      setAvatarUrl(user?.picture);
+
+      setBackgroundPreview(user?.background);
+      setBackgroundUrl(user?.background);
     }
 
     const handleSubmit = async () => {
       const { publicKeyStr } = wallet;
 
       // const { principal } = usePlug();
+      const user = JSON.parse(localStorage.getItem("@user"));
+      
+      delete user.name;
+      delete user.picture;
 
-      const user = {
-        firstName,
-        lastName,
-        dateOfBirth: date,
-        liveIn,
-        sex,
-        phone,
-        avatar: avatarUrl,
-        background: backgroundUrl,
-        id: publicKeyStr
-      };
+      localStorage.setItem("@user", JSON.stringify({
+         ...user,
+         "name": lastName,
+         "picture": avatarUrl,
+      }));
 
       try {
-        await API.User.createUser(user);
+      //   await API.User.createUser(user);
 
         Swal.fire(
             'Cập nhật thành công!',
@@ -116,13 +117,13 @@ export const SettingsScreen = () => {
               </div>
           </div>
 
-          <TextInput defaultValue={ firstName } onChange={(e) => setFirstName(e.target.value)} placeholder="Họ"/>
+          {/* <TextInput defaultValue={ firstName } onChange={(e) => setFirstName(e.target.value)} placeholder="Họ"/> */}
           <TextInput defaultValue={ lastName } onChange={(e) => setLastName(e.target.value)} placeholder="Tên"/>
-          <TextInput defaultValue={ phone } onChange={(e) => setPhone(e.target.value)} placeholder="Số điện thoại" type="number"/>
+          {/* <TextInput defaultValue={ phone } onChange={(e) => setPhone(e.target.value)} placeholder="Số điện thoại" type="number"/> */}
 
-          <SelectBox defaultValue={ sex?.toString() } onChange={e => setSex(Number(e.target.value))} options={[ { value: "0", label: "Nam" }, { value: "1", label: "Nữ"} ]}/>
+          {/* <SelectBox defaultValue={ sex?.toString() } onChange={e => setSex(Number(e.target.value))} options={[ { value: "0", label: "Nam" }, { value: "1", label: "Nữ"} ]}/> */}
 
-          <TextInput defaultValue={ date } onChange={e => setDate(e.target.value)} placeholder="Date" type="date"/>
+          {/* <TextInput defaultValue={ date } onChange={e => setDate(e.target.value)} placeholder="Date" type="date"/> */}
 
 
           {/* <TextArea defaultValue={ liveIn } onChange={(e) => setLiveIn(e.target.value)}  placeholder="Nơi sống"/> */}
