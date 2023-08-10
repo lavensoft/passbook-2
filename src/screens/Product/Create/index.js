@@ -96,7 +96,8 @@ export const NFTCreateScreen = () => {
             category,
             privacy,
             preorder,
-            Number(supplies)
+            Number(supplies),
+            liveStream
          );
       } else {
          await API.NFT.mintNFT(

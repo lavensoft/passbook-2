@@ -131,7 +131,7 @@ export const NFT = {
 
       return mint;
    },
-   mintTicket: async (walletPublicKey, name, imageUrl, place, date, time, price, description, gifts = [], details, type, category, privacy, preorder, supplies = 1) => {
+   mintTicket: async (walletPublicKey, name, imageUrl, place, date, time, price, description, gifts = [], details, type, category, privacy, preorder, supplies = 1, liveStream=false) => {
       let mint = await NFT.mint(walletPublicKey, supplies);
       //*Upload metadata
       let metadata = {
@@ -153,7 +153,8 @@ export const NFT = {
          owner: JSON.parse(localStorage.getItem("@user")),
          createdBy: JSON.parse(localStorage.getItem("@user")),
          dateCreated: new Date().toISOString(),
-         checkin: false
+         checkin: false,
+         liveStream
       }
 
       return set(ref(getDatabase(), "tickets/" + metadata.id), metadata);
