@@ -40,7 +40,8 @@ export const SolanaProvider = ({ children }) => {
             setWallet(wallet => (
                {
                   ...wallet,
-                  publicKey: solflare.publicKey
+                  publicKey: solflare.publicKey,
+                  publicKeyStr: solflare.publicKey.toBase58()
                }
             ))
             // window.location.href = "/#/home";
