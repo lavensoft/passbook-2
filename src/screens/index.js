@@ -21,6 +21,7 @@ import { QRScanScreen } from './QRScan';
 import { ProfileScreen } from './Profile';
 import { ManagementView } from "./Product/Management"
 import { FeedPage } from './Feed';
+import { LivePage } from './Product/Information/Live';
 
 const Screens =  {
     Home: HomeScreen,
@@ -56,6 +57,7 @@ const Screens =  {
         Notify: Notify,
     },
     Checkin: Checkin,
+    Live: LivePage
 }
 
 export default Screens;

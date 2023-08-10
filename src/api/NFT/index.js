@@ -180,6 +180,39 @@ export const NFT = {
 
       return set(ref(getDatabase(), "nfts/" + metadata.id), metadata);
    },
+   mintFeed: async(content, image, nft) => {
+      let metadata = {
+         id: randomStr(25),
+         owner: JSON.parse(localStorage.getItem("@user")),
+         createdBy: JSON.parse(localStorage.getItem("@user")),
+         dateCreated: new Date().toISOString(),
+         content,
+         image,
+         nft
+      }
+
+      return set(ref(getDatabase(), "feed/" + metadata.id), metadata);
+   },
+   getAllFeed: async() => {
+      let res = await get(child(ref(getDatabase()), "feed"));
+
+      res = Object.keys(res.val()).map(key => ({
+         ...res.val()[key]
+      }));
+
+      return res.reverse();
+   },
+   getOwnedFeed: async(walletPublicKey) => {
+      let res = await get(child(ref(getDatabase()), "feed"));
+
+      res = Object.keys(res.val()).map(key => ({
+         ...res.val()[key]
+      }));
+
+      res = res.filter(i => i.owner.publicKey === walletPublicKey);
+
+      return res.reverse();
+   },
    getAll: async () => {
       let res = await get(child(ref(getDatabase()), "tickets"));
 
@@ -290,6 +323,11 @@ export const NFT = {
    get: async (id) => {
       let res = await get(child(ref(getDatabase()), `tickets/${id}`));
       res = res.val();
+
+      if(!res) {
+         res = await get(child(ref(getDatabase()), `nfts/${id}`));
+         res = res.val();
+      }
 
       res.author = res.createdBy;
       res.owned = res.owner.email === JSON.parse(localStorage.getItem("@user")).email;

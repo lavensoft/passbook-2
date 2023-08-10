@@ -21,6 +21,11 @@
         backdrop-filter: blur(20px) saturate(180%);
     }
 
+    &.black {
+      background-color: rgba(0,0,0,.75)!important;
+      color: white!important;
+    }
+
     &__leading {
         display: flex;
         gap: 8px;

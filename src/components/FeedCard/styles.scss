@@ -4,6 +4,7 @@
    background-color: white;
    border: 1px solid #D8D8DF;
    box-shadow: rgba(0, 0, 0, 0.12) 0px 3px 12px;
+   margin-bottom: 24px;
 
    & .info {
       display: flex;
@@ -17,8 +18,8 @@
          justify-content: center;
 
          & .avatar {
-            width: 32px;
-            height: 32px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
          }
 

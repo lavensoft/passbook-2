@@ -1,37 +1,38 @@
 import { IoChatbubble, IoChatbubbleOutline, IoHeartOutline, IoShareOutline } from "react-icons/io5"
 import "./styles.scss";
 
-export const FeedCard = () => {
+export const FeedCard = ({ image, content, username, avatar, onSwap }) => {
+   const actions = [Math.floor(Math.random() * (10 - 1 + 1) + 1), Math.floor(Math.random() * (10 - 1 + 1) + 1)];
+
    return (
       <div className="feedcard">
          <div className="info">
             <div className="user">
                <div className="avatar" style={{
-                  background: `url(https://coder.poly-bees.com/avatars/a19.png) no-repeat center center / cover`
+                  background: `url(${avatar}) no-repeat center center / cover`
                }}></div>
-               <span className="name"></span>
+               <span className="name">{ username }</span>
             </div>
             <div className="meta">
-               <span className="meta-item"><IoHeartOutline className="icon"/> 2</span>
-               <span className="meta-item"><IoChatbubbleOutline className="icon"/> 2</span>
-               <span className="meta-item"><IoHeartOutline className="icon"/> 2</span>
+               <span className="meta-item"><IoHeartOutline className="icon"/> {actions[0]}</span>
+               <span className="meta-item"><IoChatbubbleOutline className="icon"/> {actions[1]}</span>
             </div>
          </div>
 
          <div className="content">
-            <p className="content-p">Hello</p>
+            <p className="content-p">{content}</p>
 
-            <img src="https://bees.lavenes.com/files/photo_gowPIQoCTKau61yqXEqwwcx0w1685793677250.jpg"/>
+            <img src={image}/>
          </div>
 
          <div className="action">
             <div className="action-item">
-               <span className="title"><IoHeartOutline className="icon"/> Like</span>
+               <span className="title"><IoHeartOutline className="icon"/>Like</span>
             </div>
             <div className="action-item">
-               <span className="title"><IoChatbubbleOutline className="icon"/> Comments</span>
+               <span className="title"><IoChatbubbleOutline className="icon"/>Comments</span>
             </div>
-            <div className="action-item">
+            <div className="action-item" onClick={onSwap}>
                <span className="title"><IoShareOutline className="icon"/> Swap</span>
             </div>
          </div>

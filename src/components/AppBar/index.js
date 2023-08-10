@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 
 import "./styles.scss";
 
-export const AppBar = ({ title, actions, leading, fixed }) => {
+export const AppBar = ({ title, actions, leading, fixed, black }) => {
     const navigate = useNavigate();
     
     return (
-        <header className={`appbar ${fixed && "fixed"}`}>
+        <header className={`appbar ${fixed && "fixed"} ${black && "black"}`}>
             <div className="appbar__leading">
                 { leading }
             </div>
@@ -31,10 +31,10 @@ export const ActionButton = ({ icon, onClick, to="#" }) => {
     )
 };
 
-export const ActionBack = ({}) => {
+export const ActionBack = ({color}) => {
     const navigate = useNavigate();
 
-    return <ActionButton icon={<IoChevronBack/>} onClick={() => navigate(-1)}/>
+    return <ActionButton icon={<IoChevronBack color={color}/>} onClick={() => navigate(-1)}/>
 }
 
 export const AvatarImage = ({ image }) => {
