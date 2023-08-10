@@ -30,21 +30,21 @@ export const SettingsScreen = () => {
     }, []);
 
     const fetchData = async () => {
-      // let userData = await API.User.get(principal);
-      // userData = userData[0];
-      
-      // setFirstName(userData?.firstName);
-      // setLastName(userData?.lastName);
-      // setPhone(userData?.phone);
-      // setDate(userData?.dateOfBirth);
-      // setLiveIn(userData?.liveIn);
-      // setSex(userData?.sex);
+      const { publicKeyStr } = wallet;
 
-      // setAvatarPreview(userData?.avatar);
-      // setAvatarUrl(userData?.avatar);
+      let userData = await API.User.get(publicKeyStr);
+      setFirstName(userData?.firstName);
+      setLastName(userData?.lastName);
+      setPhone(userData?.phone);
+      setDate(userData?.dateOfBirth);
+      setLiveIn(userData?.liveIn);
+      setSex(userData?.sex);
 
-      // setBackgroundPreview(userData?.background);
-      // setBackgroundUrl(userData?.background);
+      setAvatarPreview(userData?.avatar);
+      setAvatarUrl(userData?.avatar);
+
+      setBackgroundPreview(userData?.background);
+      setBackgroundUrl(userData?.background);
     }
 
     const handleSubmit = async () => {
@@ -52,29 +52,29 @@ export const SettingsScreen = () => {
 
       // const { principal } = usePlug();
 
-      // const user = {
-      //   firstName,
-      //   lastName,
-      //   dateOfBirth: date,
-      //   liveIn,
-      //   sex,
-      //   phone,
-      //   avatar: avatarUrl,
-      //   background: backgroundUrl,
-      //   id: Principal.fromText(principal)
-      // };
+      const user = {
+        firstName,
+        lastName,
+        dateOfBirth: date,
+        liveIn,
+        sex,
+        phone,
+        avatar: avatarUrl,
+        background: backgroundUrl,
+        id: publicKeyStr
+      };
 
-      // try {
-      //   await API.User.createUser(user);
+      try {
+        await API.User.createUser(user);
 
-      //   Swal.fire(
-      //       'Cập nhật thành công!',
-      //       'Thông tin của bạn đã được cập nhật',
-      //       'success'
-      //   );
-      // }catch(e) {
-      //   console.log(e);
-      // };
+        Swal.fire(
+            'Cập nhật thành công!',
+            'Thông tin của bạn đã được cập nhật',
+            'success'
+        );
+      }catch(e) {
+        console.log(e);
+      };
     }
 
     const handleUploadAvatar = async (e) => {

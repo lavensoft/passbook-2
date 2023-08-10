@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { TextInput, View, Title, Button, TextArea, SelectBox, Notification, Back } from '@components';
 import { Config } from '@config';
 import { usePlug } from '@hooks';
@@ -7,6 +7,10 @@ import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 
 import "./styles.scss";
+import { Connection, Keypair, LAMPORTS_PER_SOL, clusterApiUrl } from '@solana/web3.js';
+import { TOKEN_PROGRAM_ID, createMint, getAccount, getOrCreateAssociatedTokenAccount, mintTo } from '@solana/spl-token';
+import { SolanaContext } from '../../../context';
+import { getMintAccount } from '@elusiv/sdk';
 
 export const NFTCreateScreen = () => {
     const { principal } = usePlug();
@@ -39,6 +43,7 @@ export const NFTCreateScreen = () => {
     const [supplies, setSupplies] = useState(0);
 
     const [isLoading, setIsLoading] = useState(false);
+    const wallet = useContext(SolanaContext);
 
     useEffect(() => {
         fetchData();
@@ -64,30 +69,76 @@ export const NFTCreateScreen = () => {
     }
 
     const handleSubmit = async () => {
-        await API.NFT.mint(
-            name,
-            imageUrl,
-            place,
-            date,
-            time,
-            price,
-            description,
-            gifts,
-            details,
-            type,
-            category,
-            privacy,
-            preorder,
-            supplies
-        );
+      //   await API.NFT.mint(
+      //       name,
+      //       imageUrl,
+      //       place,
+      //       date,
+      //       time,
+      //       price,
+      //       description,
+      //       gifts,
+      //       details,
+      //       type,
+      //       category,
+      //       privacy,
+      //       preorder,
+      //       supplies
+      //   );
 
-        Swal.fire(
-            'Tạo thành công!',
-            '',
-            'success'
-        ).then(e => {
-            navigate(-1);
-        });
+      //   Swal.fire(
+      //       'Tạo thành công!',
+      //       '',
+      //       'success'
+      //   ).then(e => {
+      //       navigate(-1);
+      //   });
+
+      //*========= [ CREATE FUG TOKEN ] =========
+      // const payer = Keypair.generate();
+      // const mintAuthority = Keypair.generate();
+      // const freezeAuthority = Keypair.generate();
+
+      // const connection = new Connection(
+      //    clusterApiUrl(Config.NETWORK),
+      //    'confirmed'
+      // );
+   
+      // const airdropSignature = await connection.requestAirdrop(
+      //    payer.publicKey,
+      //    LAMPORTS_PER_SOL,
+      // );
+       
+      // await connection.confirmTransaction(airdropSignature);
+
+      // const mint = await createMint(
+      //    connection,
+      //    payer,
+      //    mintAuthority.publicKey,
+      //    freezeAuthority.publicKey,
+      //    9 // We are using 9 to match the CLI decimal default exactly
+      // );   
+
+      // console.log(`NFT: ${mint.toBase58()}`)
+
+      // //Create token account
+      // const tokenAccount = await getOrCreateAssociatedTokenAccount(
+      //    connection,
+      //    payer,
+      //    mint,
+      //    wallet.publicKey
+      // )
+
+      // console.log(`TOKEN ACCOUNT: ${tokenAccount.address.toBase58()}`);
+
+      // await mintTo(
+      //    connection,
+      //    payer,
+      //    mint,
+      //    tokenAccount.address,
+      //    mintAuthority,
+      //    100000000000 // because decimals for the mint are set to 9 
+      // )
     }
 
     const handleSelectGift = async (id) => {

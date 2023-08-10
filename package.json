@@ -95,6 +95,7 @@
     "@elusiv/sdk": "^0.1.13",
     "@gumhq/react-sdk": "^3.0.1",
     "@noble/ed25519": "^2.0.0",
+    "@solana/spl-token": "^0.3.8",
     "@solana/wallet-adapter-base": "^0.9.23",
     "@solana/wallet-adapter-react": "^0.15.34",
     "@solana/wallet-adapter-react-ui": "^0.9.33",
