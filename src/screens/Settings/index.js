@@ -116,12 +116,12 @@ export const SettingsScreen = () => {
           <TextInput defaultValue={ lastName } onChange={(e) => setLastName(e.target.value)} placeholder="Tên"/>
           <TextInput defaultValue={ phone } onChange={(e) => setPhone(e.target.value)} placeholder="Số điện thoại" type="number"/>
 
-          <SelectBox defaultValue={ sex?.toString() } onChange={e => setSex(Number(e.target.value))} options={[ { value: "1", label: "Nam" }, { value: "0", label: "Nữ"} ]}/>
+          <SelectBox defaultValue={ sex?.toString() } onChange={e => setSex(Number(e.target.value))} options={[ { value: "0", label: "Nam" }, { value: "1", label: "Nữ"} ]}/>
 
           <TextInput defaultValue={ date } onChange={e => setDate(e.target.value)} placeholder="Date" type="date"/>
 
 
-          <TextArea defaultValue={ liveIn } onChange={(e) => setLiveIn(e.target.value)}  placeholder="Nơi sống"/>
+          {/* <TextArea defaultValue={ liveIn } onChange={(e) => setLiveIn(e.target.value)}  placeholder="Nơi sống"/> */}
           <Button onClick={handleSubmit} style={{ marginTop: 32 }}>Lưu</Button>
         </View>
     )

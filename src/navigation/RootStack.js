@@ -29,7 +29,7 @@ const RootStack = () => {
                <Route exact path='/articles/:categoryId/add' element={<ArticleEditScreen/>}/>
             </Route> */}
 
-            <Route exact path="/" element={<Screens.Connect />} />
+            {/* <Route exact path="/" element={<Screens.Connect />} /> */}
             <Route exact path={routes.PROFILE} element={<Screens.Profile />} />
 
             <Route exact path={routes.QR_SCAN} element={<Screens.QRScan />} />
