@@ -178,7 +178,7 @@ export const NFT = {
          checkin: false
       }
 
-      return set(ref(getDatabase(), "tickets/" + metadata.id), metadata);
+      return set(ref(getDatabase(), "nfts/" + metadata.id), metadata);
    },
    getAll: async () => {
       let res = await get(child(ref(getDatabase()), "tickets"));
@@ -252,26 +252,38 @@ export const NFT = {
 
       //   return res.reverse();
    },
-   getOwned: async () => {
+   getOwnedTicket: async (ownerPublicKey) => {
       let res = await get(child(ref(getDatabase()), "tickets"));
 
-      res = Object.keys(res.val()).map(key => ({
+      res = Object.keys(res.val() || {}).map(key => ({
          ...res.val()[key],
          author: res.val()[key]["createdBy"]
       }));
 
-      res = res.filter((i) => i.owner.email === JSON.parse(localStorage.getItem("@user")).email);
+      res = res.filter((i) => i.owner.publicKey === ownerPublicKey);
 
       return res.reverse();
    },
-   getCreatedNFTs: async () => {
-      let res = await get(child(ref(getDatabase()), "tickets"));
+   getOwnedNft: async (ownerPublicKey) => {
+      let res = await get(child(ref(getDatabase()), "nfts"));
 
-      res = Object.keys(res.val()).map(key => ({
+      res = Object.keys(res.val() || {}).map(key => ({
+         ...res.val()[key],
+         author: res.val()[key]["createdBy"]
+      }));
+
+      res = res.filter((i) => i.owner.publicKey === ownerPublicKey);
+
+      return res.reverse();
+   },
+   getCreatedNft: async (ownerPublicKey) => {
+      let res = await get(child(ref(getDatabase()), "nfts"));
+
+      res = Object.keys(res.val() || {}).map(key => ({
          ...res.val()[key]
       }));
 
-      res = res.filter(item => item.createdBy.email === JSON.parse(localStorage.getItem("@user")).email);
+      res = res.filter(item => item.createdBy.publicKey === ownerPublicKey);
 
       return res.reverse();
    },

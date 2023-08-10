@@ -61,7 +61,7 @@ export const NFTCreateScreen = () => {
 
    const fetchData = async () => {
       //*Fetch NFTs
-      const NFTs = await API.NFT.getCreatedNFTs();
+      const NFTs = await API.NFT.getCreatedNft(walletCtx.publicKeyStr);
 
       setNFTs(NFTs);
    }
