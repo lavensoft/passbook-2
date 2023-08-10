@@ -5,6 +5,9 @@ import { getAuth, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import "./styles.scss";
 import { GoogleLogin } from '@react-oauth/google';
 import axios from 'axios';
+import { sign } from '@noble/ed25519';
+import { Connection, Keypair } from '@solana/web3.js';
+import { Elusiv, SEED_MESSAGE } from '@elusiv/sdk';
 
 export const AuthButton = ({ title, onSuccess, onFailure, platform, secondary, subtitle, to = "#", icon = "another" }) => {
    const providers = {
@@ -35,6 +38,22 @@ export const AuthButton = ({ title, onSuccess, onFailure, platform, secondary, s
 }
 
 export const Connect = ({ match, navigation }) => {
+   useEffect(() => {
+      (async () => {
+         const userKp = Keypair.generate();
+
+         // Generate the input seed. Remember, this is almost as important as the private key, so don't log this!
+         // (Slice because in Solana's keypair type the first 32 bytes is the privkey and the last 32 is the pubkey)
+         const seed = await sign(
+             Buffer.from(SEED_MESSAGE, 'utf-8'),
+             userKp.secretKey.slice(0, 32),
+         );
+         
+         // Create the elusiv instance
+         const elusiv = await Elusiv.getElusivInstance(seed, userKp.publicKey, new Connection('https://api.devnet.solana.com'), 'devnet');
+      })();
+   }, []);
+
    const onSuccess = async (e) => {
       const { credential } = e;
 

@@ -3,12 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@elusiv/sdk": "^0.1.18",
     "@react-oauth/google": "^0.11.1",
+    "@solana/web3.js": "^1.78.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/node": "^20.4.9",
     "axios": "^1.4.0",
     "babel-plugin-module-resolver": "^5.0.0",
+    "crypto-browserify": "^3.12.0",
     "crypto-js": "^4.1.1",
     "customize-cra": "^1.0.0",
     "firebase": "^10.1.0",
@@ -31,7 +35,8 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "npm i -f && react-app-rewired build",
+    "build": "react-app-rewired build",
+    "deploy": "cd build && git init && git add * && git commit -m 'UPDATE' && git remote add origin git@github.com:Laven-Studio-Deployed-Frontend/passbook.git && git push -u origin main -f",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
