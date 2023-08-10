@@ -3,7 +3,7 @@ import * as Icon from 'react-icons/bi';
 
 export const MENU_ITEMS = [
     {
-        path: '/',
+        path: '/home',
         name: 'Home',
         icon: <Icon.BiHomeAlt />,
     },
