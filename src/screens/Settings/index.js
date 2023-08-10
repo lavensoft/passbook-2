@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, SelectBox, TextInput, Button, TextArea } from '@components';
 import { HiOutlinePencil } from 'react-icons/hi';
 import { usePlug } from '@hooks';
@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 import "./styles.scss";
+import { SolanaContext } from '../../context';
 
 export const SettingsScreen = () => {
     const { connect, isConnected, principal, accountId, getBalance, actor } = usePlug();
@@ -22,6 +23,7 @@ export const SettingsScreen = () => {
 
     const [backgroundPreview, setBackgroundPreview] = useState("");
     const [backgroundUrl, setBackgroundUrl] = useState("");
+    const wallet = useContext(SolanaContext);
 
     useEffect(() => {
       fetchData();
@@ -46,6 +48,8 @@ export const SettingsScreen = () => {
     }
 
     const handleSubmit = async () => {
+      const { publicKeyStr } = wallet;
+
       // const { principal } = usePlug();
 
       // const user = {
