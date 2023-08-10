@@ -13,6 +13,11 @@ export const MENU_ITEMS = [
         icon: <Icon.BiBasket />,
     },
     {
+        path: '/management',
+        name: 'Management',
+        icon: <Icon.BiBasket />,
+    },
+    {
         path: '/notifications',
         name: 'Notification',
         icon: <Icon.BiBell />,
