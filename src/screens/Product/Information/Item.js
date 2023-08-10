@@ -120,7 +120,7 @@ export const ItemInformation = ({ title, id }) => {
             >
                <span className="category"></span>
                {
-                  itemData?.liveStream &&
+                  itemData?.liveStream && isOwned &&
                   <Button style={{ marginTop: 32 }} to="/live">Watch livestream</Button>
                }
             </motion.div>
