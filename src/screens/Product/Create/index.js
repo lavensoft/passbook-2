@@ -14,6 +14,10 @@ import { getMintAccount } from '@elusiv/sdk';
 import { useWallet } from '@solana/wallet-adapter-react';
 import { Metaplex, bundlrStorage, keypairIdentity } from '@metaplex-foundation/js';
 
+// import * as ed from '@noble/ed25519'
+// import { sha512 } from '@noble/hashes/sha512'
+// ed.etc.sha512Sync = (...m) => sha512(ed.etc.concatBytes(...m))
+
 export const NFTCreateScreen = () => {
     const { principal } = usePlug();
     const navigate = useNavigate();
@@ -101,28 +105,40 @@ export const NFTCreateScreen = () => {
 
       console.log("Mining...");
       const connection = new Connection(
-         clusterApiUrl(Config.NETWORK),
-         'confirmed'
+         clusterApiUrl(Config.NETWORK)
       );
 
       const fromWallet = Keypair.generate();
 
-      console.log("Generate...");
+      // const metaplex = Metaplex.make(connection)
+      // .use(keypairIdentity(fromWallet))
+      // .use(bundlrStorage({
+      //     address: 'https://devnet.bundlr.network',
+      //     providerUrl: 'https://wispy-damp-film.solana-devnet.discover.quiknode.pro/bc63f12dde34d141708d8bd1d2a2965b170c3d5c/',
+      //     timeout: 60000,
+      // }));
 
-      const metaplex = Metaplex.make(connection)
-      .use(keypairIdentity(fromWallet))
-      .use(bundlrStorage());
+      const metaplex = new Metaplex(connection);
 
-      console.log("Plex...");
-   
+      console.log("Airdrop...");
+
       const airdropSignature = await connection.requestAirdrop(
          fromWallet.publicKey,
          LAMPORTS_PER_SOL,
       );
-
-      console.log("Airdrop...");
        
       await connection.confirmTransaction(airdropSignature);
+
+      console.log("Plex...");
+   
+      // const airdropSignature = await connection.requestAirdrop(
+      //    fromWallet.publicKey,
+      //    LAMPORTS_PER_SOL,
+      // );
+
+      // console.log("Airdrop...");
+       
+      // await connection.confirmTransaction(airdropSignature);
 
       // // //*========= [ CREATE NFT ] ===============
       // const mint = await createMint(
@@ -136,72 +152,110 @@ export const NFTCreateScreen = () => {
       // console.log(`NFT: ${mint.toBase58()}`);
 
       const { nft } = await metaplex.nfts().create({
-         uri: "https://passbook.com/nhatsnfthehe",
-         image: "https://i.imgur.com/K8gaTha.png",
-         name: "My NFT 2",
-         description: "My description 2",
+         uri: "https://passbook-lavenes-default-rtdb.asia-southeast1.firebasedatabase.app/tickets/happy-bee-ubmae.json",
+         name: "My NFT",
          sellerFeeBasisPoints: 500, // Represents 5.00%.
      });
 
      console.log(nft);
+      //===== 
 
-     const mint = nft.mint.address;
+   //    const { uri } = await metaplex.nfts().uploadMetadata({
+   //       name: "Lavenes",
+   //       description: "Lavenes's NFT",
+   //       image: "https://i.imgur.com/K8gaTha.png",
+   //       attributes: [
+   //          {trait_type: 'Speed', value: 'Quick'},
+   //          {trait_type: 'Type', value: 'Pixelated'},
+   //          {trait_type: 'Background', value: 'QuickNode Blue'}
+   //       ],
+   //       properties: {
+   //           files: [
+   //               {
+   //                   type: "image/png",
+   //                   uri: "https://i.imgur.com/K8gaTha.png",
+   //               },
+   //           ]
+   //       }
+   //    });
 
-     console.log(mint.toBase58());
+   //   console.log(uri);
 
-      // Get the token account of the "fromWallet" Solana address. If it does not exist, create it.
-      const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
-         connection,
-         fromWallet,
-         mint,
-         fromWallet.publicKey
-      );
+   //    const { nft } = await metaplex
+   //    .nfts()
+   //    .create({
+   //       uri,
+   //       name: "Lavenes",
+   //       sellerFeeBasisPoints: 500, //500 = 5%
+   //       symbol: "LVN",
+   //       creators: [
+   //          {address: walletCtx.publicKey, share: 100}
+   //      ],
+   //       isMutable: false,
+   //    },{ commitment: "finalized" });
+   //    console.log(`   Success!🎉`);
+   //    console.log(`   Minted NFT: https://explorer.solana.com/address/${nft.address}?cluster=devnet`);
 
-      console.log("CREATED");
+   // //   const mint = nft.mint.address;
 
-      // Get the token account of the "toWallet" Solana address. If it does not exist, create it.
-      const toTokenAccount = await getOrCreateAssociatedTokenAccount(
-         connection,
-         fromWallet,
-         mint,
-         walletCtx.publicKey
-      );
+   //   console.log(mint.toBase58());
 
-      console.log("TO ACCOUNT");
+      // // Get the token account of the "fromWallet" Solana address. If it does not exist, create it.
+      // const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
+      //    connection,
+      //    fromWallet,
+      //    mint,
+      //    fromWallet.publicKey
+      // );
 
-      // Minting 1 new token to the "fromTokenAccount" account we just returned/created.
-      let signature = await mintTo(
-         connection,
-         fromWallet,               // Payer of the transaction fees 
-         mint,                     // Mint for the account 
-         fromTokenAccount.address, // Address of the account to mint to 
-         fromWallet.publicKey,     // Minting authority
-         1                         // Amount to mint 
-      );
+      // console.log("CREATED");
 
-      console.log("MITING 1");
+      // // Get the token account of the "toWallet" Solana address. If it does not exist, create it.
+      // const toTokenAccount = await getOrCreateAssociatedTokenAccount(
+      //    connection,
+      //    fromWallet,
+      //    mint,
+      //    walletCtx.publicKey
+      // );
+
+      // //ERROR
+      // console.log("TO ACCOUNT");
+
+      // // Minting 1 new token to the "fromTokenAccount" account we just returned/created.
+      // // let signature = await mintTo(
+      // //    connection,
+      // //    fromWallet,               // Payer of the transaction fees 
+      // //    mint,                     // Mint for the account 
+      // //    fromTokenAccount.address, // Address of the account to mint to 
+      // //    fromWallet.publicKey,     // Minting authority
+      // //    1                         // Amount to mint 
+      // // );
+
+      // console.log(nft.mint.supply);
+
+      // console.log("MITING 1");
       
-      await setAuthority(
-         connection,
-         fromWallet,            // Payer of the transaction fees
-         mint,                  // Account 
-         fromWallet.publicKey,  // Current authority 
-         0,                     // Authority type: "0" represents Mint Tokens 
-         null                   // Setting the new Authority to null
-      );
+      // await setAuthority(
+      //    connection,
+      //    fromWallet,            // Payer of the transaction fees
+      //    mint,                  // Account 
+      //    fromWallet.publicKey,  // Current authority 
+      //    0,                     // Authority type: "0" represents Mint Tokens 
+      //    null                   // Setting the new Authority to null
+      // );
 
-      console.log("AUTH");
+      // console.log("AUTH");
       
-      signature = await transfer(
-         connection,
-         fromWallet,               // Payer of the transaction fees 
-         fromTokenAccount.address, // Source account 
-         toTokenAccount.address,   // Destination account 
-         fromWallet.publicKey,     // Owner of the source account 
-         1                         // Number of tokens to transfer 
-      );
+      // await transfer(
+      //    connection,
+      //    fromWallet,               // Payer of the transaction fees 
+      //    fromTokenAccount.address, // Source account 
+      //    toTokenAccount.address,   // Destination account 
+      //    fromWallet.publicKey,     // Owner of the source account 
+      //    1                         // Number of tokens to transfer 
+      // );
 
-      console.log(fromWallet.publicKey.toBase58());
+      // console.log(fromWallet.publicKey.toBase58());
 
       console.log("DONE!!!");
 

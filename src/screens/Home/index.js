@@ -66,6 +66,8 @@ export const HomeScreen = ({ match, navigation }) => {
 
                 <BalanceCard balance={balance}/>
 
+               <Button style={{marginTop: 32}} to="/product/create">Create Event or NFT</Button>
+
                 {/* <Button style={{marginTop: 32}} onClick={() => {
                     let value = 1000;
 
