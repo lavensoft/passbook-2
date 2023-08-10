@@ -19,6 +19,7 @@ import { Notify } from "./Notify"
 import { QRScanScreen } from './QRScan';
 
 import { ProfileScreen } from './Profile';
+import { ManagementView } from "./Product/Management"
 
 const Screens =  {
     Home: HomeScreen,
@@ -38,6 +39,7 @@ const Screens =  {
         Exchange: Exchange,
         CreateSaleEvents : CreateSaLeEvents,
         SwapNFT: SwapNFT,
+        ManagementView
     },
     QRScan: QRScanScreen,
     Profile: ProfileScreen,

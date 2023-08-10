@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { AnimateSharedLayout, AnimatePresence } from "framer-motion";
 import { useNavigationType, useParams } from 'react-router-dom';
 import { IoScan } from 'react-icons/io5';
@@ -7,6 +7,8 @@ import Screens from '@screens';
 import { usePlug } from '@hooks';
 import API from '@api';
 import { Config } from '@config';
+import { useAnchorWallet, useWallet } from '@solana/wallet-adapter-react';
+import { SolanaContext } from '../../context';
 
 export const HomeScreen = ({ match, navigation }) => {
     let { ticketId } = useParams();
@@ -14,9 +16,15 @@ export const HomeScreen = ({ match, navigation }) => {
     const [ ownedTickets, setOwnedTickets ] = useState([]);
     const { connect, isConnected, principal, accountId, getBalance, actor } = usePlug();
     const [ userInfo, setUserInfo ] = useState({ });
+    const wallet = useContext(SolanaContext);
 
     useEffect(() => {
        fetchData();
+
+       console.log("PUBLIC KEY");
+       console.log(wallet);
+
+       localStorage.setItem("@user", '{"iss":"https://accounts.google.com","azp":"830626874390-hb47nkacuk4cn0c6pr788lri14s28jif.apps.googleusercontent.com","aud":"830626874390-hb47nkacuk4cn0c6pr788lri14s28jif.apps.googleusercontent.com","sub":"110196887894405140549","email":"nhatsdev@gmail.com","email_verified":"true","nbf":"1691402076","name":"Quang Nhật","picture":"https://lh3.googleusercontent.com/a/AAcHTtdo9WT6Ys6iwTVuZ2R_yDvrWNHFOt7-4MnHxNNABEHADQ=s96-c","given_name":"Quang","family_name":"Nhật","locale":"vi","iat":"1691402376","exp":"1691405976","jti":"c95b6d7264d7088b8c4f5108937ea6834e3b39f4","alg":"RS256","kid":"911e39e27928ae9f1e9d1e21646de92d19351b44","typ":"JWT"}');
     }, []);
 
 

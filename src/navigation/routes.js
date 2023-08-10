@@ -1,11 +1,12 @@
 export const routes = {
-    HOME: '/home',
+    HOME: '/',
     QR_SCAN: '/qr_scan',
     SETTINGS: '/settings',
     PRODUCT: {
         CREATE: '/product/create',
         SALE: '/product/sale',
         MARKET: '/products',
+        MANAGEMENT: "/management",
         INFORMATION: {
             TICKET: '/tickets/:ticketId',
             ITEM: '/items/:itemId',

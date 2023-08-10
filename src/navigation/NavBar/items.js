@@ -3,13 +3,18 @@ import * as Icon from 'react-icons/bi';
 
 export const MENU_ITEMS = [
     {
-        path: '/home',
+        path: '/',
         name: 'Home',
         icon: <Icon.BiHomeAlt />,
     },
     {
         path: '/products',
         name: 'Store',
+        icon: <Icon.BiBasket />,
+    },
+    {
+        path: '/management',
+        name: 'Management',
         icon: <Icon.BiBasket />,
     },
     {
