@@ -6,6 +6,7 @@ export const routes = {
         CREATE: '/product/create',
         SALE: '/product/sale',
         MARKET: '/products',
+        MANAGEMENT: "/management",
         INFORMATION: {
             TICKET: '/tickets/:ticketId',
             ITEM: '/items/:itemId',
