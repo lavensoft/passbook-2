@@ -23,7 +23,8 @@ const RootStack = () => {
 
    return (
       <>
-         {window.location.hash != "#/" && window.location.hash != "" && <NavBar />}
+         {/* {window.location.hash != "#/" && window.location.hash != "" && <NavBar />} */}
+         <NavBar/>
          <Routes>
             {/* <Route exact path='/articles/:categoryId/add' element={<PrivateRoute/>}>
                <Route exact path='/articles/:categoryId/add' element={<ArticleEditScreen/>}/>
