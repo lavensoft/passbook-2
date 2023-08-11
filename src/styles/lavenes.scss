@@ -21,6 +21,10 @@
     z-index: 99999999!important;
 }
 
+a,p,button,div,span,textarea,label {
+   font-family: $font-family!important;
+}
+
 body {
     font-family: $font-family;
     -webkit-tap-highlight-color: transparent;

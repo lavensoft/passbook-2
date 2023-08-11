@@ -14,7 +14,7 @@ export const Config = {
     VARIABLES: {
         TICKET_TYPES: [
             {
-                label: "Vé",
+                label: "Ticket",
                 value: "ticket"
             }, {
                 label: "NFT",
@@ -23,15 +23,18 @@ export const Config = {
         ],
         TICKET_CATEGORIES: [
             {
-                label: "Âm Nhạc",
+                label: "Music",
                 value: "music"
             }, {
-                label: "Điện Ảnh",
+                label: "Movie",
                 value: "movie"
             }, {
-               label: "Công Nghệ",
+               label: "Technology",
                value: "tech"
-           }
+           }, {
+            label: "Sports",
+            value: "sports"
+        }
         ]
     },
     MOTOKO: {

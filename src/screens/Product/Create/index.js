@@ -51,6 +51,7 @@ export const NFTCreateScreen = () => {
    const [isLoading, setIsLoading] = useState(false);
    const walletCtx = useContext(SolanaContext);
    const [liveStream, setLiveStream] = useState(false);
+   const [loading, setLoading] = useState(false);
    //  const { wallet } = useWallet();
 
    useEffect(() => {
@@ -79,6 +80,7 @@ export const NFTCreateScreen = () => {
    }
 
    const handleSubmit = async () => {
+      setLoading(true);
       // await API.NFT.transferToken("AhG3uPDG65p2pTXwUawW6Tpn5s4LFwQxfn9coPnvVaST", "", "9VWpu5PWXo85RJ8vc5punn8dsYGT4rFMhV9Vx5Sy3gpd")
       if (type == "ticket") {
          await API.NFT.mintTicket(
@@ -113,6 +115,8 @@ export const NFTCreateScreen = () => {
             Number(supplies)
          );
       }
+
+      setLoading(false);
 
       Swal.fire(
          'Tạo thành công!',
@@ -238,7 +242,7 @@ export const NFTCreateScreen = () => {
 
          <TextArea onChange={e => setDetails(e.target.value)} placeholder="Chi tiết" />
 
-         {isLoading ? <Button style={{ marginTop: 32 }} onClick={handleSubmit}>Loading ...</Button> : <Button style={{ marginTop: 32 }} onClick={handleSubmit}>Save</Button>}
+         <Button style={{ marginTop: 32 }} onClick={handleSubmit} loading={loading}>Save</Button>
       </View>
    )
 }

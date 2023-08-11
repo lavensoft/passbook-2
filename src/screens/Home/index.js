@@ -83,14 +83,14 @@ export const HomeScreen = ({ match, navigation }) => {
                 }}>Mua Coin</Button> */}
 
             <Title
-               subtitle={`Xin chào ${JSON.parse(localStorage.getItem("@user")).name}`}
-               title="Sự kiện nổi bật"
+               subtitle={`Hi ${JSON.parse(localStorage.getItem("@user")).name}`}
+               title="Your events"
             />
 
             <FeatureCard to={`/items/${ownedTickets[0]?.id}`} id={ownedTickets[0]?.id} image={ownedTickets[0]?.image} />
 
             <SectionTitle
-               title="Sự kiện sắp diễn ra"
+               title="Your events"
                readMoreUrl="/products/categories/owned/coming"
                readMoreTitle="Xem thêm"
             />
