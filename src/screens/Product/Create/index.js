@@ -76,7 +76,9 @@ export const NFTCreateScreen = () => {
 
       let uploadRes = await API.IPFS.uploadImage(file);
 
-      setImageUrl(uploadRes.data.url);
+      console.log(uploadRes.data.data.link);
+
+      setImageUrl(uploadRes.data.data.link);
    }
 
    const handleSubmit = async () => {

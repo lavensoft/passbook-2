@@ -57,7 +57,7 @@ export const SettingsScreen = () => {
       const user = JSON.parse(localStorage.getItem("@user"));
       
       delete user.name;
-      delete user.picture;
+      delete user?.picture;
 
       localStorage.setItem("@user", JSON.stringify({
          ...user,

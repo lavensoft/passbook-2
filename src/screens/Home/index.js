@@ -67,7 +67,7 @@ export const HomeScreen = ({ match, navigation }) => {
                   <AppBar.ActionButton icon={<IoScan />} to="/qr_scan" />
                }
                actions={
-                  <AppBar.AvatarImage image={JSON.parse(localStorage.getItem("@user")).picture} />
+                  <AppBar.AvatarImage image={JSON.parse(localStorage.getItem("@user"))?.picture} />
                }
             />
 

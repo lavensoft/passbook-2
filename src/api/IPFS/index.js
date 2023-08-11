@@ -13,7 +13,7 @@ export const IPFS = {
          headers: {
             // "app":"63452fa601a4792a134bf3f2", 
             // "api_key":"AIzaSyAGLoe812akN97h2LVKZoUc3eHdeFGz9SI",
-            "Content-Type": "application/json",
+            // "Content-Type": "application/json",
             "Authorization": "Client-ID 774070ae15678a2"
          }
       });

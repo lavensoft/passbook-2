@@ -4,7 +4,8 @@
   "description": "Demo application to show usage of Elusiv's SDK with React and Webpack",
   "scripts": {
     "start": "webpack serve --mode=development",
-    "build": "webpack --mode=production"
+    "build": "rm -rf dist && webpack --mode=production",
+    "deploy": "cd dist && git init && git add * && git commit -m 'UPDATE' && git remote add origin https://github.com/Laven-Studio-Deployed-Frontend/passbook.git && git push -u origin main -f"
   },
   "keywords": [],
   "author": "",

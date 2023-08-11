@@ -63,7 +63,7 @@ export const FeedPage = () => {
             posts?.map((item) => {
                return (
                   <FeedCard
-                     avatar={item.owner.picture}
+                     avatar={item?.owner?.picture}
                      username={item.owner.name}
                      content={item.content}
                      image={item.image}

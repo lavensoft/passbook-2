@@ -76,7 +76,7 @@ export const ItemInformation = ({ title, id }) => {
             from: fromData.email,
             to: itemData.createdBy.email,
             content: `${fromData.name} đã mua vé sự kiện của bạn`,
-            icon: fromData.picture
+            icon: fromData?.picture
          });
       });
    }
