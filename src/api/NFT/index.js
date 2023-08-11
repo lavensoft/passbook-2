@@ -331,7 +331,7 @@ export const NFT = {
       }
 
       res.author = res.createdBy;
-      res.owned = res.owner.email === JSON.parse(localStorage.getItem("@user")).email;
+      res.owned = res.owner.publicKey === JSON.parse(localStorage.getItem("@user")).publicKey;
 
       return res;
       //   res.gifts = res.gifts.map(item => {
@@ -422,12 +422,15 @@ export const NFT = {
       let fromTicket = await NFT.get(from);
       let toTicket = await NFT.get(to);
 
+      console.log(fromTicket);
+      console.log(toTicket);
+
       const updates = {
-         [`tickets/${from}`]: {
+         [`nfts/${from}`]: {
             ...fromTicket,
             owner: toTicket.owner
          },
-         [`tickets/${to}`]: {
+         [`nfts/${to}`]: {
             ...toTicket,
             owner: fromTicket.owner
          }
