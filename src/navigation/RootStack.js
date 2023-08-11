@@ -33,6 +33,10 @@ const RootStack = () => {
             {/* <Route exact path="/" element={<Screens.Connect />} /> */}
             <Route exact path={routes.PROFILE} element={<Screens.Profile />} />
 
+            <Route exact path={routes.LIVE} element={<Screens.Live />} />
+
+            <Route exact path={routes.FEED} element={<Screens.Feed />} />
+
             <Route exact path={routes.QR_SCAN} element={<Screens.QRScan />} />
 
             <Route exact path={routes.NOTIFICATIONS.SHOWNOTIFY} element={<Screens.Notifications.Notify />} />

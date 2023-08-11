@@ -4,12 +4,138 @@ import API from '@api';
 import Axios from 'axios';
 import { stringToSlug, randomStr } from '@utils';
 import { getDatabase, set, ref, get, child, push, update } from 'firebase/database';
+import { Connection, Keypair, LAMPORTS_PER_SOL, clusterApiUrl, sendAndConfirmTransaction } from '@solana/web3.js';
+import { createMint, getOrCreateAssociatedTokenAccount, mintTo, setAuthority, transfer, TOKEN_PROGRAM_ID } from '@solana/spl-token';
+import { PublicKey, TokenAndMintDoNotMatchError } from '@metaplex-foundation/js';
 
 export const NFT = {
-   mint: async (name, imageUrl, place, date, time, price, description, gifts, details, type, category, privacy, preorder, supplies) => {
+   transferToken: async (tokenId, fromWalletPublicKey, toWalletPublicKey) => {
+      // Connect to cluster
+      var connection = new Connection(clusterApiUrl(Config.NETWORK));
+      // Construct wallet keypairs
+      var fromWallet = Keypair.fromSecretKey(Config.WALLET_SECRECT);
+      var toWallet = Keypair.generate();
+      // Construct my token class
+      var myMint = new PublicKey(tokenId);
+      var myToken = new TokenAndMintDoNotMatchError(
+         connection,
+         myMint,
+         TOKEN_PROGRAM_ID,
+         fromWallet
+      );
+
+      // Create associated token accounts for my token if they don't exist yet
+      var fromTokenAccount = await myToken.getOrCreateAssociatedAccountInfo(
+         fromWallet.publicKey
+      )
+      var toTokenAccount = await myToken.getOrCreateAssociatedAccountInfo(
+         toWalletPublicKey
+      )
+      // Add token transfer instructions to transaction
+      var transaction = new web3.Transaction()
+         .add(
+            splToken.createTransferInstruction(
+            splToken.TOKEN_PROGRAM_ID,
+            fromTokenAccount.address,
+            toTokenAccount.address,
+            fromWallet.publicKey,
+            [],
+            0
+            )
+         );
+      // Sign transaction, broadcast, and confirm
+      var signature = await sendAndConfirmTransaction(
+         connection,
+         transaction,
+         [fromWallet]
+      );
+      console.log("SIGNATURE", signature);
+      console.log("SUCCESS");
+   },
+   mint: async (walletPublicKey, supplies = 1) => {
+      console.log("Mining Ticket...");
+      const connection = new Connection(
+         clusterApiUrl(Config.NETWORK),
+         "confirmed"
+      );
+
+      const fromWallet = Keypair.generate();
+
+      const airdropSignature = await connection.requestAirdrop(
+         fromWallet.publicKey,
+         LAMPORTS_PER_SOL,
+      );
+
+      await connection.confirmTransaction(airdropSignature);
+
+      const mint = await createMint(
+         connection,
+         fromWallet,
+         fromWallet.publicKey,
+         null,
+         0
+      );
+
+      console.log(`NFT: ${mint.toBase58()}`);
+
+      const fromTokenAccount = await getOrCreateAssociatedTokenAccount(
+         connection,
+         fromWallet,
+         mint,
+         fromWallet.publicKey
+      );
+
+      // Generate a new wallet to receive the newly minted token
+
+      // Get the token account of the "toWallet" Solana address. If it does not exist, create it.
+      const toTokenAccount = await getOrCreateAssociatedTokenAccount(
+         connection,
+         fromWallet,
+         mint,
+         walletPublicKey
+      );
+
+      // Minting 1 new token to the "fromTokenAccount" account we just returned/created.
+      let nft = await mintTo(
+         connection,
+         fromWallet,               // Payer of the transaction fees 
+         mint,                     // Mint for the account 
+         fromTokenAccount.address, // Address of the account to mint to 
+         fromWallet.publicKey,     // Minting authority
+         supplies                         // Amount to mint 
+      );
+
+      // console.log(mint.);
+
+      await setAuthority(
+         connection,
+         fromWallet,            // Payer of the transaction fees
+         mint,                  // Account 
+         fromWallet.publicKey,  // Current authority 
+         0,                     // Authority type: "0" represents Mint Tokens 
+         null                   // Setting the new Authority to null
+      );
+
+      await transfer(
+         connection,
+         fromWallet,               // Payer of the transaction fees 
+         fromTokenAccount.address, // Source account 
+         toTokenAccount.address,   // Destination account 
+         fromWallet.publicKey,     // Owner of the source account 
+         1                         // Number of tokens to transfer 
+      );
+
+      console.log(fromWallet.publicKey.toBase58());
+
+      console.log("DONE!!!");
+
+      return mint;
+   },
+   mintTicket: async (walletPublicKey, name, imageUrl, place, date, time, price, description, gifts = [], details, type, category, privacy, preorder, supplies = 1, liveStream=false) => {
+      let mint = await NFT.mint(walletPublicKey, supplies);
       //*Upload metadata
       let metadata = {
-         id: stringToSlug(name + '-' + randomStr(5)),
+         id: mint.toBase58(),
          name,
          image: imageUrl,
          place,
@@ -27,11 +153,66 @@ export const NFT = {
          owner: JSON.parse(localStorage.getItem("@user")),
          createdBy: JSON.parse(localStorage.getItem("@user")),
          dateCreated: new Date().toISOString(),
+         checkin: false,
+         liveStream
+      }
+
+      return set(ref(getDatabase(), "tickets/" + metadata.id), metadata);
+   },
+   mintNFT: async (walletPublicKey, name, imageUrl, price, description, details, type, category, privacy, supplies) => {
+      let mint = await NFT.mint(walletPublicKey, supplies);
+      //*Upload metadata
+      let metadata = {
+         id: mint.toBase58(),
+         name,
+         image: imageUrl,
+         price: Number(price),
+         description,
+         details,
+         nftType: type,
+         category,
+         privacy,
+         supplies,
+         owner: JSON.parse(localStorage.getItem("@user")),
+         createdBy: JSON.parse(localStorage.getItem("@user")),
+         dateCreated: new Date().toISOString(),
          checkin: false
       }
 
-      set(ref(getDatabase(), "tickets/" + metadata.id), metadata);
-      return;
+      return set(ref(getDatabase(), "nfts/" + metadata.id), metadata);
+   },
+   mintFeed: async(content, image, nft) => {
+      let metadata = {
+         id: randomStr(25),
+         owner: JSON.parse(localStorage.getItem("@user")),
+         createdBy: JSON.parse(localStorage.getItem("@user")),
+         dateCreated: new Date().toISOString(),
+         content,
+         image,
+         nft
+      }
+
+      return set(ref(getDatabase(), "feed/" + metadata.id), metadata);
+   },
+   getAllFeed: async() => {
+      let res = await get(child(ref(getDatabase()), "feed"));
+
+      res = Object.keys(res.val()).map(key => ({
+         ...res.val()[key]
+      }));
+
+      return res.reverse();
+   },
+   getOwnedFeed: async(walletPublicKey) => {
+      let res = await get(child(ref(getDatabase()), "feed"));
+
+      res = Object.keys(res.val()).map(key => ({
+         ...res.val()[key]
+      }));
+
+      res = res.filter(i => i.owner.publicKey === walletPublicKey);
+
+      return res.reverse();
    },
    getAll: async () => {
       let res = await get(child(ref(getDatabase()), "tickets"));
@@ -105,32 +286,49 @@ export const NFT = {
 
       //   return res.reverse();
    },
-   getOwned: async () => {
+   getOwnedTicket: async (ownerPublicKey) => {
       let res = await get(child(ref(getDatabase()), "tickets"));
 
-      res = Object.keys(res.val()).map(key => ({
+      res = Object.keys(res.val() || {}).map(key => ({
          ...res.val()[key],
          author: res.val()[key]["createdBy"]
       }));
 
-      res = res.filter((i) => i.owner.email === JSON.parse(localStorage.getItem("@user")).email);
+      res = res.filter((i) => i.owner.publicKey === ownerPublicKey);
 
       return res.reverse();
    },
-   getCreatedNFTs: async () => {
-      let res = await get(child(ref(getDatabase()), "tickets"));
+   getOwnedNft: async (ownerPublicKey) => {
+      let res = await get(child(ref(getDatabase()), "nfts"));
 
-      res = Object.keys(res.val()).map(key => ({
+      res = Object.keys(res.val() || {}).map(key => ({
+         ...res.val()[key],
+         author: res.val()[key]["createdBy"]
+      }));
+
+      res = res.filter((i) => i.owner.publicKey === ownerPublicKey);
+
+      return res.reverse();
+   },
+   getCreatedNft: async (ownerPublicKey) => {
+      let res = await get(child(ref(getDatabase()), "nfts"));
+
+      res = Object.keys(res.val() || {}).map(key => ({
          ...res.val()[key]
       }));
 
-      res = res.filter(item => item.createdBy.email === JSON.parse(localStorage.getItem("@user")).email);
+      res = res.filter(item => item.createdBy.publicKey === ownerPublicKey);
 
       return res.reverse();
    },
    get: async (id) => {
       let res = await get(child(ref(getDatabase()), `tickets/${id}`));
       res = res.val();
+
+      if(!res) {
+         res = await get(child(ref(getDatabase()), `nfts/${id}`));
+         res = res.val();
+      }
 
       res.author = res.createdBy;
       res.owned = res.owner.email === JSON.parse(localStorage.getItem("@user")).email;

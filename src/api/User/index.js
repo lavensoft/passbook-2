@@ -3,16 +3,19 @@ import { Config } from '@config';
 import API from '@api';
 import Axios from 'axios';
 import { stringToSlug, randomStr } from '@utils';
+import { child, getDatabase, ref, set, get } from 'firebase/database';
 
 export const User = {
-    get: async (principalId) => {
-      //   let hero = await actor;
-      //   const { principal } = usePlug();
-        
-      //   return await hero.getUserInfo(Principal.fromText(principalId || principal));
+    get: async (userId) => {
+      let res = await get(child(ref(getDatabase()), `users/${userId}`));
+      res = res.val();
+
+      return res;
     },
     createUser: async (user) => {
       //   let hero = await actor;
+
+      set(ref(getDatabase(), "users/" + user.id), user);
         
       //   return await hero.createAccount(user);
     },

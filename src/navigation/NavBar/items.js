@@ -1,5 +1,6 @@
 import React from 'react';
 import * as Icon from 'react-icons/bi';
+import { IoEarthOutline } from 'react-icons/io5';
 
 export const MENU_ITEMS = [
     {
@@ -13,9 +14,9 @@ export const MENU_ITEMS = [
         icon: <Icon.BiBasket />,
     },
     {
-        path: '/management',
-        name: 'Management',
-        icon: <Icon.BiBasket />,
+        path: '/feed',
+        name: 'Feed',
+        icon: <Icon.BiNews />,
     },
     {
         path: '/notifications',

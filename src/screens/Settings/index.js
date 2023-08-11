@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, SelectBox, TextInput, Button, TextArea } from '@components';
 import { HiOutlinePencil } from 'react-icons/hi';
 import { usePlug } from '@hooks';
@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 
 import "./styles.scss";
+import { SolanaContext } from '../../context';
 
 export const SettingsScreen = () => {
     const { connect, isConnected, principal, accountId, getBalance, actor } = usePlug();
@@ -22,55 +23,59 @@ export const SettingsScreen = () => {
 
     const [backgroundPreview, setBackgroundPreview] = useState("");
     const [backgroundUrl, setBackgroundUrl] = useState("");
+    const wallet = useContext(SolanaContext);
 
     useEffect(() => {
       fetchData();
     }, []);
 
     const fetchData = async () => {
-      // let userData = await API.User.get(principal);
-      // userData = userData[0];
-      
+      const { publicKeyStr } = wallet;
+      const user = JSON.parse(localStorage.getItem("@user"));
+
+      console.log(user);
+
+      // let userData = await API.User.get(publicKeyStr);
       // setFirstName(userData?.firstName);
-      // setLastName(userData?.lastName);
+      setLastName(user?.name);
       // setPhone(userData?.phone);
       // setDate(userData?.dateOfBirth);
       // setLiveIn(userData?.liveIn);
       // setSex(userData?.sex);
 
-      // setAvatarPreview(userData?.avatar);
-      // setAvatarUrl(userData?.avatar);
+      setAvatarPreview(user?.picture);
+      setAvatarUrl(user?.picture);
 
-      // setBackgroundPreview(userData?.background);
-      // setBackgroundUrl(userData?.background);
+      setBackgroundPreview(user?.background);
+      setBackgroundUrl(user?.background);
     }
 
     const handleSubmit = async () => {
+      const { publicKeyStr } = wallet;
+
       // const { principal } = usePlug();
+      const user = JSON.parse(localStorage.getItem("@user"));
+      
+      delete user.name;
+      delete user.picture;
 
-      // const user = {
-      //   firstName,
-      //   lastName,
-      //   dateOfBirth: date,
-      //   liveIn,
-      //   sex,
-      //   phone,
-      //   avatar: avatarUrl,
-      //   background: backgroundUrl,
-      //   id: Principal.fromText(principal)
-      // };
+      localStorage.setItem("@user", JSON.stringify({
+         ...user,
+         "name": lastName,
+         "picture": avatarUrl,
+      }));
 
-      // try {
+      try {
       //   await API.User.createUser(user);
 
-      //   Swal.fire(
-      //       'Cập nhật thành công!',
-      //       'Thông tin của bạn đã được cập nhật',
-      //       'success'
-      //   );
-      // }catch(e) {
-      //   console.log(e);
-      // };
+        Swal.fire(
+            'Cập nhật thành công!',
+            'Thông tin của bạn đã được cập nhật',
+            'success'
+        );
+      }catch(e) {
+        console.log(e);
+      };
     }
 
     const handleUploadAvatar = async (e) => {
@@ -112,13 +117,13 @@ export const SettingsScreen = () => {
               </div>
           </div>
 
-          <TextInput defaultValue={ firstName } onChange={(e) => setFirstName(e.target.value)} placeholder="Họ"/>
+          {/* <TextInput defaultValue={ firstName } onChange={(e) => setFirstName(e.target.value)} placeholder="Họ"/> */}
           <TextInput defaultValue={ lastName } onChange={(e) => setLastName(e.target.value)} placeholder="Tên"/>
-          <TextInput defaultValue={ phone } onChange={(e) => setPhone(e.target.value)} placeholder="Số điện thoại" type="number"/>
+          {/* <TextInput defaultValue={ phone } onChange={(e) => setPhone(e.target.value)} placeholder="Số điện thoại" type="number"/> */}
 
-          <SelectBox defaultValue={ sex?.toString() } onChange={e => setSex(Number(e.target.value))} options={[ { value: "0", label: "Nam" }, { value: "1", label: "Nữ"} ]}/>
+          {/* <SelectBox defaultValue={ sex?.toString() } onChange={e => setSex(Number(e.target.value))} options={[ { value: "0", label: "Nam" }, { value: "1", label: "Nữ"} ]}/> */}
 
-          <TextInput defaultValue={ date } onChange={e => setDate(e.target.value)} placeholder="Date" type="date"/>
+          {/* <TextInput defaultValue={ date } onChange={e => setDate(e.target.value)} placeholder="Date" type="date"/> */}
 
 
           {/* <TextArea defaultValue={ liveIn } onChange={(e) => setLiveIn(e.target.value)}  placeholder="Nơi sống"/> */}

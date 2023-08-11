@@ -1,7 +1,9 @@
 export const routes = {
     HOME: '/',
     QR_SCAN: '/qr_scan',
+    FEED: "/feed",
     SETTINGS: '/settings',
+    LIVE: '/live',
     PRODUCT: {
         CREATE: '/product/create',
         SALE: '/product/sale',
