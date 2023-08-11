@@ -197,7 +197,7 @@ export const NFT = {
    getAllFeed: async() => {
       let res = await get(child(ref(getDatabase()), "feed"));
 
-      res = Object.keys(res.val()).map(key => ({
+      res = Object.keys(res.val() || {}).map(key => ({
          ...res.val()[key]
       }));
 
@@ -206,7 +206,7 @@ export const NFT = {
    getOwnedFeed: async(walletPublicKey) => {
       let res = await get(child(ref(getDatabase()), "feed"));
 
-      res = Object.keys(res.val()).map(key => ({
+      res = Object.keys(res?.val() || {}).map(key => ({
          ...res.val()[key]
       }));
 
@@ -359,6 +359,17 @@ export const NFT = {
          owner: JSON.parse(localStorage.getItem("@user")),
          nftType: "ticket",
          checkin: false
+      }
+
+      if(ticket.gifts.length) {
+         for(gift of ticket.gifts) {
+            let id = metadata.id + randomStr(5);
+            set(ref(getDatabase(), "nfts/" + id), {
+               ...gift,
+               id,
+               owner: JSON.parse(localStorage.getItem("@user")),
+            });
+         }
       }
 
       set(ref(getDatabase(), "tickets/" + metadata.id), metadata);

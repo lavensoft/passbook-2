@@ -21,6 +21,8 @@ export const FeedPage = () => {
       const nfts = await API.NFT.getOwnedNft(wallet.publicKeyStr);
       const posts = await API.NFT.getAllFeed();
 
+      console.log(nfts);
+
       setOwnNfts(nfts);
       setPosts(posts);
    }
