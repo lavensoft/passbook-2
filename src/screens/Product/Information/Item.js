@@ -120,7 +120,7 @@ export const ItemInformation = ({ title, id }) => {
             >
                <span className="category"></span>
                {
-                  itemData?.liveStream &&
+                  itemData?.liveStream && isOwned &&
                   <Button style={{ marginTop: 32 }} to="/live">Watch livestream</Button>
                }
             </motion.div>
@@ -139,7 +139,7 @@ export const ItemInformation = ({ title, id }) => {
                         <ActionsGroup.Button onClick={() => {console.log("Click")}} name="Share" icon={<Icon.IoShareOutline/>}/> */}
                </ActionsGroup.Group>
 
-               {!isOwned && <h4>Số lượng</h4>}
+               {!isOwned && <h4>Supply</h4>}
 
                {
                   !isOwned &&
@@ -176,6 +176,7 @@ export const ItemInformation = ({ title, id }) => {
                            title={item?.name}
                            subtitle={item?.description}
                            image={item?.image}
+                           to={`/items/${item.id}`}
                            key={`information-group-gift-item-${index}`}
                         />
                      })

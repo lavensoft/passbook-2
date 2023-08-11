@@ -28,25 +28,25 @@ export const Ticket = ({ title, description, place, date, time, section, seat, p
             <div className="ticket__content">
                 <div className="ticket__content__row">
                     <div className="ticket__content__row__col">
-                        <span className="ticket__content__title">Địa điểm</span>
+                        <span className="ticket__content__title">Location</span>
                         <span className="ticket__content__value">{ place }</span>
                     </div>
                 </div>
 
                 <div className="ticket__content__row">
                     <div className="ticket__content__row__col">
-                        <span className="ticket__content__title">Ngày diễn ra</span>
+                        <span className="ticket__content__title">Date</span>
                         <span className="ticket__content__value">{ date }</span>
                     </div>
                     <div className="ticket__content__row__col">
-                        <span className="ticket__content__title">Giờ</span>
+                        <span className="ticket__content__title">Time</span>
                         <span className="ticket__content__value__feature">{ time }</span>
                     </div>
                 </div>
                 
                 <div className="ticket__content__row">
                     <div className="ticket__content__row__col">
-                        <span className="ticket__content__title">Giá</span>
+                        <span className="ticket__content__title">Price</span>
                         <span className="ticket__content__value">{ price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".") }</span>
                     </div>
                     { preorder && <div className="ticket__content__row__col">
@@ -57,12 +57,12 @@ export const Ticket = ({ title, description, place, date, time, section, seat, p
                 
                 <div className="ticket__content__row">
                     { supplies && <div className="ticket__content__row__col">
-                        <span className="ticket__content__title">Số lượng</span>
+                        <span className="ticket__content__title">Supply</span>
                         <span className="ticket__content__value">{ supplies }</span>
                     </div> }
                     <div className="ticket__content__row__col">
                         <span className="ticket__content__title">Checkin</span>
-                        <span className="ticket__content__value">{ checkin ? 'Đã sử dụng' : 'Chưa sử dụng' }</span>
+                        <span className="ticket__content__value">{ checkin ? 'Checked-in' : 'not yet' }</span>
                     </div>
                 </div>
             </div>

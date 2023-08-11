@@ -34,6 +34,13 @@ export const FeedPage = () => {
    const handleSend = async () => {
       await API.NFT.mintFeed(content, image, nftSelected.id);
       console.log("FEED DONE");
+
+      setPosts(posts => [{
+         content, image, owner: JSON.parse(localStorage.getItem("@user"))
+      }, ...posts]);
+
+      setImage("");
+      setContent("");
    }
 
    const handleSwap = async (userKey, nftId) => {
